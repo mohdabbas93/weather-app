@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
-import android.location.LocationRequest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,13 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
-import com.mohdabbas.weatherapp.data.source.WeatherRepository
-import com.mohdabbas.weatherapp.data.source.local.WeatherDatabase
-import com.mohdabbas.weatherapp.data.source.remote.WeatherApi
-import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -68,6 +62,15 @@ class HomeFragment : Fragment() {
                 .centerCrop()
                 .into(weatherConditionIcon)
             adapter?.updateData(it.dailyWeather)
+
+            windSpeedTextView.text =
+                getString(R.string.wind_speed_template, it.currentWeather.windSpeed.toInt())
+
+            humiditySpeedTextView.text =
+                getString(R.string.humidity_template, it.currentWeather.humidity)
+
+            pressureSpeedTextView.text =
+                getString(R.string.pressure_template, it.currentWeather.pressure.toInt())
         }
     }
 
@@ -152,7 +155,7 @@ class HomeFragment : Fragment() {
         adapter = DailyWeatherAdapter(listOf())
         dailyRecyclerView.adapter = adapter
 
-       // addDecorationForRecyclerView()
+        // addDecorationForRecyclerView()
     }
 
     private fun addDecorationForRecyclerView() {

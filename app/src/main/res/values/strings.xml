@@ -8,4 +8,10 @@
     <string name="current_temp">%1$d°</string>
     <string name="feels_like_temp">FeelsLike %1$d°</string>
     <string name="daily">Daily</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind_speed_template">%1$d km/h</string>
+    <string name="humidity_template">%1$d %%</string>
+    <string name="pressure_template">%1$d mBar</string>
 </resources>
