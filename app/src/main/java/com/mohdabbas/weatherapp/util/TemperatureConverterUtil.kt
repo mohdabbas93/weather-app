@@ -10,8 +10,7 @@ object TemperatureConverterUtil {
         return if (isCelsius) this else fromCelsiusToFahrenheit()
     }
 
-    // TODO: Add formula later
     private fun Double.fromCelsiusToFahrenheit(): Double {
-        return this
+        return this * 9 /5 + 32
     }
 }
