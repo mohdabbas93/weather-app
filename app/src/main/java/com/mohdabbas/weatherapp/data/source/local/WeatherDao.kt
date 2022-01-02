@@ -1,9 +1,6 @@
 package com.mohdabbas.weatherapp.data.source.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 /**
  * Created by Mohammad Abbas
@@ -16,4 +13,13 @@ interface WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWeatherData(cityWeather: CityWeather)
+
+    @Query("SELECT * FROM favorite_cities")
+    suspend fun getFavoriteCities(): List<FavoriteCity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavoriteCity(favoriteCityWeather: FavoriteCity)
+
+    @Delete
+    suspend fun deleteFavoriteCity(favoriteCityWeather: FavoriteCity)
 }
