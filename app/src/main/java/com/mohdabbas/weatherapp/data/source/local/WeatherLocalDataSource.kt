@@ -34,6 +34,6 @@ class WeatherLocalDataSource(
     )
 
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
-        return getFavoriteCities()
+        return weatherDao.getFavoriteCities()
     }
 }
