@@ -98,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
+            android:text="@string/daily"
             android:textColor="#020202"
             android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/dailyRecyclerView"
