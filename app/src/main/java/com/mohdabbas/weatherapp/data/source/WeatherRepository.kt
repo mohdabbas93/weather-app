@@ -18,4 +18,8 @@ class WeatherRepository(
     override suspend fun getWeatherData(lat: Double, lng: Double): CityWeatherDto {
         return remoteDataSource.getWeatherData(lat, lng)
     }
+
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
+        TODO("Not yet implemented")
+    }
 }

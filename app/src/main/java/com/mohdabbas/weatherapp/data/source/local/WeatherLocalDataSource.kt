@@ -12,6 +12,9 @@ class WeatherLocalDataSource(
 ) : WeatherDataSource {
     override suspend fun getWeatherData(lat: Double, lng: Double): CityWeatherDto {
         TODO("Not yet implemented")
+    }
 
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
+        TODO("Not yet implemented")
     }
 }

@@ -13,4 +13,8 @@ class WeatherRemoteDataSource(
     override suspend fun getWeatherData(lat: Double, lng: Double): CityWeatherDto {
         return weatherApi.getCityWeatherData(lat, lng)
     }
+
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
+        TODO("Not yet implemented")
+    }
 }
