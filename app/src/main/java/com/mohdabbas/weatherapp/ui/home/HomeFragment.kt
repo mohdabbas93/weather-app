@@ -20,6 +20,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.persistence.PersistenceManager
+import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -30,13 +32,18 @@ class HomeFragment : Fragment() {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
-    // Very stupid way to instantiate a view model, for it works for now
+    // TODO: Very stupid way to instantiate a view model, for it works for now
     private val viewModel = HomeViewModel(WeatherApplication.WeatherRepository)
+
+    // TODO: Refactor this later
+    private lateinit var persistenceManager: PersistenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupObservers()
+
+        persistenceManager = PersistenceManager((requireContext()))
 
         val context = context
         if (context != null) {
@@ -51,11 +58,19 @@ class HomeFragment : Fragment() {
             dateAndTimeTextView.text =
                 SimpleDateFormat("EE d MMMM HH:mm a").format(it.currentWeather.currentUTCTime * 1000)
             currentTempTextView.text =
-                getString(R.string.current_temp, it.currentWeather.temperature.toInt())
+                getString(
+                    R.string.current_temp,
+                    it.currentWeather.temperature.convertTemperature(persistenceManager.isCelsius)
+                        .toInt()
+                )
             weatherConditionTextView.text =
                 it.currentWeather.weather.firstOrNull()?.weatherCondition ?: ""
             minAndMaxTempText.text =
-                getString(R.string.feels_like_temp, it.currentWeather.feelsLike.toInt())
+                getString(
+                    R.string.feels_like_temp,
+                    it.currentWeather.feelsLike.convertTemperature(persistenceManager.isCelsius)
+                        .toInt()
+                )
 
             Glide.with(this)
                 .load("http://openweathermap.org/img/wn/${it.currentWeather.weather.firstOrNull()?.icon}@2x.png")
