@@ -1,6 +1,7 @@
 package com.mohdabbas.weatherapp.ui.favcities
 
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import kotlinx.android.synthetic.main.item_fav_city.view.*
 import java.io.IOException
@@ -55,6 +57,12 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
             data[position].lat,
             data[position].lng
         )
+
+        viewHolder.itemView.apply {
+            setOnClickListener {
+                context.startActivity(Intent(context, CityWeatherDetailsActivity::class.java))
+            }
+        }
     }
 
     override fun getItemCount() = data.size
