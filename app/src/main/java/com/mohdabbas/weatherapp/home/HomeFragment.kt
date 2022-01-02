@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
+import android.location.LocationRequest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.mohdabbas.weatherapp.R
+import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.source.WeatherRepository
+import com.mohdabbas.weatherapp.data.source.local.WeatherDatabase
 import com.mohdabbas.weatherapp.data.source.remote.WeatherApi
 import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,14 +31,13 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class HomeFragment : Fragment() {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
     // Very stupid way to instantiate a view model, for it works for now
-    private val viewModel =
-        HomeViewModel(WeatherRepository(WeatherRemoteDataSource(WeatherApi.create())))
-
+    private val viewModel = HomeViewModel(WeatherApplication.WeatherRepository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +86,6 @@ class HomeFragment : Fragment() {
     private fun getLastLocation(context: Context) {
         if (checkPermissions(context)) {
             if (isLocationEnabled()) {
-                Toast.makeText(context, "GPS is enabled", Toast.LENGTH_SHORT).show()
                 fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
                     if (location == null) {
                         Toast.makeText(context, "Location null", Toast.LENGTH_SHORT).show()
@@ -150,7 +152,7 @@ class HomeFragment : Fragment() {
         adapter = DailyWeatherAdapter(listOf())
         dailyRecyclerView.adapter = adapter
 
-        addDecorationForRecyclerView()
+       // addDecorationForRecyclerView()
     }
 
     private fun addDecorationForRecyclerView() {
