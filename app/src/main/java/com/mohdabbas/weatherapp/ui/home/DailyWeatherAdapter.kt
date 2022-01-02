@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.remote.dto.DailyWeatherDto
+import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import kotlinx.android.synthetic.main.item_weather_daily.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,7 +18,7 @@ import java.util.*
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class DailyWeatherAdapter(private var data: List<DailyWeatherDto>) :
+class DailyWeatherAdapter(private var data: List<DailyWeatherDto>, private val isCelsius: Boolean) :
     RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -49,13 +50,13 @@ class DailyWeatherAdapter(private var data: List<DailyWeatherDto>) :
 
         viewHolder.minTempTextView.text = viewHolder.itemView.context.getString(
             R.string.current_temp,
-            data[position].temperature.minTemperature.toInt()
+            data[position].temperature.minTemperature.convertTemperature(isCelsius).toInt()
         )
 
         viewHolder.maxTempTextView.text =
             viewHolder.itemView.context.getString(
                 R.string.current_temp,
-                data[position].temperature.maxTemperature.toInt()
+                data[position].temperature.maxTemperature.convertTemperature(isCelsius).toInt()
             )
 
         Glide.with(viewHolder.itemView.context)

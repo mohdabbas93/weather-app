@@ -167,7 +167,7 @@ class HomeFragment : Fragment() {
     private var adapter: DailyWeatherAdapter? = null
 
     private fun setupDailyRecyclerView() {
-        adapter = DailyWeatherAdapter(listOf())
+        adapter = DailyWeatherAdapter(listOf(), persistenceManager.isCelsius)
         dailyRecyclerView.adapter = adapter
 
         // addDecorationForRecyclerView()
