@@ -2,6 +2,7 @@ package com.mohdabbas.weatherapp.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -12,11 +13,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
@@ -38,6 +42,12 @@ class HomeFragment : Fragment() {
 
     // TODO: Refactor this later
     private lateinit var persistenceManager: PersistenceManager
+
+    private val resolutionForResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
+            if (activityResult.resultCode == Activity.RESULT_OK)
+                getLastLocation(requireContext())
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,14 +125,13 @@ class HomeFragment : Fragment() {
             if (isLocationEnabled()) {
                 fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
                     if (location == null) {
-                        Toast.makeText(context, "Location null", Toast.LENGTH_SHORT).show()
                         startLocationUpdates()
                     } else {
                         viewModel.getWeatherData(location.latitude, location.longitude)
                     }
                 }
             } else {
-                Toast.makeText(context, "Please enable GPS", Toast.LENGTH_SHORT).show()
+                checkLocationSettings()
             }
         } else {
             requestPermission()
@@ -140,6 +149,32 @@ class HomeFragment : Fragment() {
                 ?: return false
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun checkLocationSettings() {
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest!!)
+            .setAlwaysShow(true)
+
+        val result = LocationServices.getSettingsClient(requireContext())
+            .checkLocationSettings(builder.build())
+
+        result.addOnCompleteListener { task ->
+            try {
+                val response = task.getResult(ApiException::class.java)
+            } catch (e: ApiException) {
+                if (e.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
+                    askUserToOpenLocation(e as ResolvableApiException)
+                }
+            }
+        }
+    }
+
+    private fun askUserToOpenLocation(resolvableApiException: ResolvableApiException) {
+        val intentSenderRequest =
+            IntentSenderRequest.Builder(resolvableApiException.resolution)
+                .build()
+        resolutionForResultLauncher.launch(intentSenderRequest)
     }
 
     private fun requestPermission() {
