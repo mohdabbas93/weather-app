@@ -73,4 +73,9 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
 
         return ""
     }
+
+    fun updateData(newData: List<FavoriteCity>) {
+        data = newData
+        notifyDataSetChanged()
+    }
 }
