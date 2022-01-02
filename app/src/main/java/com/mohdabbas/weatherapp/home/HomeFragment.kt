@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
             weatherConditionTextView.text =
                 it.currentWeather.weather.firstOrNull()?.weatherCondition ?: ""
             minAndMaxTempText.text =
-                getString(R.string.min_and_max_temp, 34, 34, it.currentWeather.feelsLike.toInt())
+                getString(R.string.feels_like_temp, it.currentWeather.feelsLike.toInt())
 
             Glide.with(this)
                 .load("http://openweathermap.org/img/wn/${it.currentWeather.weather.firstOrNull()?.icon}@2x.png")
