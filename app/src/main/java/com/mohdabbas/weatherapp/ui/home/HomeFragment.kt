@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
@@ -31,6 +31,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
+    private var locationRequest: LocationRequest? = null
 
     // TODO: Very stupid way to instantiate a view model, for it works for now
     private val viewModel = HomeViewModel(WeatherApplication.WeatherRepository)
@@ -48,8 +49,16 @@ class HomeFragment : Fragment() {
         val context = context
         if (context != null) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+            createLocationRequest()
             getLastLocation(context)
         }
+    }
+
+    private fun createLocationRequest() {
+        locationRequest = LocationRequest.create()
+        locationRequest?.interval = 4000
+        locationRequest?.fastestInterval = 2000
+        locationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
     private fun setupObservers() {
@@ -107,6 +116,7 @@ class HomeFragment : Fragment() {
                 fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
                     if (location == null) {
                         Toast.makeText(context, "Location null", Toast.LENGTH_SHORT).show()
+                        startLocationUpdates()
                     } else {
                         viewModel.getWeatherData(location.latitude, location.longitude)
                     }
@@ -148,6 +158,34 @@ class HomeFragment : Fragment() {
         requestPermissionLauncher.launch(
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        locationRequest?.let { locationRequest ->
+            fusedLocationClient?.requestLocationUpdates(
+                locationRequest,
+                locationCallback(),
+                Looper.getMainLooper()
+            )
+        }
+    }
+
+    private fun locationCallback() = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            super.onLocationResult(locationResult)
+
+            stopLocationUpdate()
+
+            viewModel.getWeatherData(
+                locationResult.lastLocation.latitude,
+                locationResult.lastLocation.longitude
+            )
+        }
+    }
+
+    private fun stopLocationUpdate() {
+        fusedLocationClient?.removeLocationUpdates(locationCallback())
     }
 
     override fun onCreateView(
