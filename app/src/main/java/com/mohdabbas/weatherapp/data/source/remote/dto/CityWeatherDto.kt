@@ -54,14 +54,14 @@ data class HourlyWeatherDto(
     @SerializedName("humidity")
     val humidity: Double,
     @SerializedName("weather")
-    val weather: WeatherDto
+    val weather: List<WeatherDto>
 )
 
 data class DailyWeatherDto(
     @SerializedName("dt")
     val currentUTCTime: Long,
     @SerializedName("weather")
-    val weather: WeatherDto,
+    val weather: List<WeatherDto>,
     @SerializedName("temp")
     val temperature: TemperatureDto
 )
