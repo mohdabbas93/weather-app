@@ -20,6 +20,6 @@ class WeatherRepository(
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
-        TODO("Not yet implemented")
+        localDataSource.addWeatherData(cityWeatherDto)
     }
 }

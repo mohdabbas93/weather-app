@@ -15,6 +15,21 @@ class WeatherLocalDataSource(
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
-        TODO("Not yet implemented")
+        weatherDao.addWeatherData(cityWeatherDto.toEntity())
     }
+
+    private fun CityWeatherDto.toEntity() = CityWeather(
+        null,
+        lat,
+        lng,
+        timezone,
+        currentWeather.currentUTCTime,
+        currentWeather.temperature,
+        currentWeather.feelsLike,
+        currentWeather.pressure,
+        currentWeather.humidity,
+        currentWeather.windSpeed,
+        currentWeather.weather.firstOrNull()?.weatherCondition ?: "",
+        currentWeather.weather.firstOrNull()?.icon ?: ""
+    )
 }
