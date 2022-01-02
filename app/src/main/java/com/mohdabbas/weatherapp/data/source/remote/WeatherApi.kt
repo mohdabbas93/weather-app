@@ -14,7 +14,7 @@ import retrofit2.http.Query
  * On: 1/2/22.
  */
 interface WeatherApi {
-    @GET("onecall?exclude=hourly,daily&appid=$API_KEY")
+    @GET("onecall?exclude=hourly,daily&units=metric&appid=$API_KEY")
     suspend fun getCityWeatherData(
         @Query("lat") lat: Double,
         @Query("lon") lng: Double
@@ -22,7 +22,7 @@ interface WeatherApi {
 
     companion object {
         private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
-        const val API_KEY = "f908845614434e18d389e8a0760e100c"
+        private const val API_KEY = "f908845614434e18d389e8a0760e100c"
 
         fun create(): WeatherApi {
             val logger = HttpLoggingInterceptor { Log.d("API", it) }
