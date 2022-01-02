@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
@@ -17,7 +18,7 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -243,16 +244,23 @@ class HomeFragment : Fragment() {
         adapter = DailyWeatherAdapter(listOf(), persistenceManager.isCelsius)
         dailyRecyclerView.adapter = adapter
 
-        // addDecorationForRecyclerView()
+        addDecorationForRecyclerView()
     }
 
     private fun addDecorationForRecyclerView() {
-        DividerItemDecoration(
-            dailyRecyclerView.context,
-            0
-        ).apply {
-            ContextCompat.getDrawable(requireContext(), R.drawable.divider)
-            dailyRecyclerView.addItemDecoration(this)
+        val itemDecoration = object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.left = 15
+                outRect.right = 15
+            }
         }
+
+        dailyRecyclerView.addItemDecoration(itemDecoration)
     }
 }
