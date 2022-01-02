@@ -57,12 +57,9 @@ class HomeFragment : Fragment() {
 
         persistenceManager = PersistenceManager((requireContext()))
 
-        val context = context
-        if (context != null) {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-            createLocationRequest()
-            getLastLocation(context)
-        }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        createLocationRequest()
+        getLastLocation(requireContext())
     }
 
     private fun createLocationRequest() {
