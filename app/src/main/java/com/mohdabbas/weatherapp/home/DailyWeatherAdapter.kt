@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.remote.dto.DailyWeatherDto
 import kotlinx.android.synthetic.main.item_weather_daily.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Mohammad Abbas
@@ -37,8 +39,10 @@ class DailyWeatherAdapter(private var data: List<DailyWeatherDto>) :
     }
 
 
+    private val sdf = SimpleDateFormat("EEEE")
+
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.dayTextView.text = "Sunday"
+        viewHolder.dayTextView.text = sdf.format(Date(data[position].currentUTCTime * 1000))
 
         viewHolder.weatherConditionTextView.text =
             data[position].weather.firstOrNull()?.weatherCondition ?: ""
