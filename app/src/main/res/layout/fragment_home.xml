@@ -93,5 +93,33 @@
             app:layout_constraintTop_toBottomOf="@+id/weatherConditionTextView"
             tools:text="34/34 FeelsLike 34" />
 
+        <TextView
+            android:id="@+id/dailyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textColor="#020202"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/dailyRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Daily" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dailyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_weather_daily" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
