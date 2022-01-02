@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
     private var adapter: DailyWeatherAdapter? = null
 
     private fun setupDailyRecyclerView() {
-        adapter = DailyWeatherAdapter(listOf(), requireContext())
+        adapter = DailyWeatherAdapter(listOf())
         dailyRecyclerView.adapter = adapter
     }
 }

@@ -1,6 +1,5 @@
 package com.mohdabbas.weatherapp.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.item_weather_daily.view.*
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class DailyWeatherAdapter(private var data: List<DailyWeatherDto>, private val context: Context) :
+class DailyWeatherAdapter(private var data: List<DailyWeatherDto>) :
     RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -55,7 +54,7 @@ class DailyWeatherAdapter(private var data: List<DailyWeatherDto>, private val c
                 data[position].temperature.maxTemperature.toInt()
             )
 
-        Glide.with(context)
+        Glide.with(viewHolder.itemView.context)
             .load("http://openweathermap.org/img/wn/${data[position].weather.firstOrNull()?.icon ?: ""}@2x.png")
             .centerCrop()
             .into(viewHolder.weatherConditionIcon)
