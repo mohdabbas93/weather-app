@@ -60,7 +60,12 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
 
         viewHolder.itemView.apply {
             setOnClickListener {
-                context.startActivity(Intent(context, CityWeatherDetailsActivity::class.java))
+                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
+
+                intent.putExtra("lat", data[position].lat)
+                intent.putExtra("lng", data[position].lng)
+
+                context.startActivity(intent)
             }
         }
     }
