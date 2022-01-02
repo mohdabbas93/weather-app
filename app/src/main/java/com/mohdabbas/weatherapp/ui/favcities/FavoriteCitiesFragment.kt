@@ -1,4 +1,4 @@
-package com.mohdabbas.weatherapp.favcities
+package com.mohdabbas.weatherapp.ui.favcities
 
 import android.os.Bundle
 import android.view.LayoutInflater

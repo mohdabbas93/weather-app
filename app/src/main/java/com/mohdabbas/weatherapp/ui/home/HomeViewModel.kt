@@ -1,4 +1,4 @@
-package com.mohdabbas.weatherapp.home
+package com.mohdabbas.weatherapp.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

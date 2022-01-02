@@ -1,4 +1,4 @@
-package com.mohdabbas.weatherapp.home
+package com.mohdabbas.weatherapp.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint

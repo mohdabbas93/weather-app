@@ -1,11 +1,12 @@
-package com.mohdabbas.weatherapp
+package com.mohdabbas.weatherapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.mohdabbas.weatherapp.favcities.FavoriteCitiesFragment
-import com.mohdabbas.weatherapp.home.HomeFragment
-import com.mohdabbas.weatherapp.settings.SettingsFragment
+import com.mohdabbas.weatherapp.R
+import com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesFragment
+import com.mohdabbas.weatherapp.ui.home.HomeFragment
+import com.mohdabbas.weatherapp.ui.settings.SettingsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.fragmentContainerView, fragment)
-                commit()
-            }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainerView, fragment)
+            commit()
+        }
 }

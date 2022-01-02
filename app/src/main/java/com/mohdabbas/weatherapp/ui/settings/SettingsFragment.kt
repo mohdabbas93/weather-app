@@ -1,4 +1,4 @@
-package com.mohdabbas.weatherapp.settings
+package com.mohdabbas.weatherapp.ui.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
