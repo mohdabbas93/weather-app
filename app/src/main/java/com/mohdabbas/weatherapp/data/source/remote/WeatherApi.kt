@@ -14,7 +14,7 @@ import retrofit2.http.Query
  * On: 1/2/22.
  */
 interface WeatherApi {
-    @GET("onecall?exclude=hourly,daily&units=metric&appid=$API_KEY")
+    @GET("onecall?exclude=minutely&units=metric&appid=$API_KEY")
     suspend fun getCityWeatherData(
         @Query("lat") lat: Double,
         @Query("lon") lng: Double
