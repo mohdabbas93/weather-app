@@ -14,4 +14,7 @@
     <string name="wind_speed_template">%1$d km/h</string>
     <string name="humidity_template">%1$d %%</string>
     <string name="pressure_template">%1$d mBar</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="select_temperature_unit">Select temperature unit</string>
 </resources>
