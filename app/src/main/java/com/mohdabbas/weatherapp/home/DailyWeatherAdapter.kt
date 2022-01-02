@@ -40,15 +40,25 @@ class DailyWeatherAdapter(private var data: List<DailyWeatherDto>, private val c
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.dayTextView.text = "Sunday"
+
         viewHolder.weatherConditionTextView.text =
             data[position].weather.firstOrNull()?.weatherCondition ?: ""
-        viewHolder.minTempTextView.text = "34"
-        viewHolder.maxTempTextView.text = "34"
+
+        viewHolder.minTempTextView.text = viewHolder.itemView.context.getString(
+            R.string.current_temp,
+            data[position].temperature.minTemperature.toInt()
+        )
+
+        viewHolder.maxTempTextView.text =
+            viewHolder.itemView.context.getString(
+                R.string.current_temp,
+                data[position].temperature.maxTemperature.toInt()
+            )
+
         Glide.with(context)
             .load("http://openweathermap.org/img/wn/${data[position].weather.firstOrNull()?.icon ?: ""}@2x.png")
             .centerCrop()
             .into(viewHolder.weatherConditionIcon)
-
     }
 
     override fun getItemCount() = data.size
