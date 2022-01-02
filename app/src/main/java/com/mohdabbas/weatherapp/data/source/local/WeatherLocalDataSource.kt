@@ -32,4 +32,8 @@ class WeatherLocalDataSource(
         currentWeather.weather.firstOrNull()?.weatherCondition ?: "",
         currentWeather.weather.firstOrNull()?.icon ?: ""
     )
+
+    override suspend fun getFavoriteCities(): List<FavoriteCity> {
+        TODO("Not yet implemented")
+    }
 }

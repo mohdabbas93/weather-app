@@ -1,6 +1,7 @@
 package com.mohdabbas.weatherapp.data.source.remote
 
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
+import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 
 /**
@@ -15,6 +16,10 @@ class WeatherRemoteDataSource(
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavoriteCities(): List<FavoriteCity> {
         TODO("Not yet implemented")
     }
 }
