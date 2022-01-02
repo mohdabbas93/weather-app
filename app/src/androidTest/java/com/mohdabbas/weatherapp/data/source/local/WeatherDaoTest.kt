@@ -49,4 +49,16 @@ class WeatherDaoTest {
 
         assert(citiesWeathers.contains(cityWeather))
     }
+
+    @Test
+    fun addFavoriteCity() = runBlocking {
+        val favCity =
+            FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0)
+
+        dao.addFavoriteCity(favCity)
+
+        val favCities = dao.getFavoriteCities()
+
+        assert(favCities.contains(favCity))
+    }
 }
