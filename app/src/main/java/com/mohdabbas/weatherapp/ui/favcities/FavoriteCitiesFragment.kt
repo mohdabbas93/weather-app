@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
 class FavoriteCitiesFragment : Fragment() {
 
+    // TODO: Refactor this later
+    private lateinit var persistenceManager: PersistenceManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        persistenceManager = PersistenceManager(requireContext())
     }
 
     override fun onCreateView(
@@ -39,7 +45,8 @@ class FavoriteCitiesFragment : Fragment() {
                 FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
                 FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
                 FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0)
-            )
+            ),
+            persistenceManager.isCelsius
         )
         favCitiesRecyclerView.adapter = adapter
     }

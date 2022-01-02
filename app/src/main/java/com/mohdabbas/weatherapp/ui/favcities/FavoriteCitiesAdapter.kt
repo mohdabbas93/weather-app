@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import kotlinx.android.synthetic.main.item_fav_city.view.*
 import java.io.IOException
 import java.util.*
@@ -19,7 +20,7 @@ import java.util.*
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class FavoriteCitiesAdapter(private var data: List<FavoriteCity>) :
+class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val isCelsius: Boolean) :
     RecyclerView.Adapter<FavoriteCitiesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -46,7 +47,7 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>) :
 
         viewHolder.currentTempTextView.text = viewHolder.itemView.context.getString(
             R.string.current_temp,
-            data[position].currentTemperature.toInt()
+            data[position].currentTemperature.convertTemperature(isCelsius).toInt()
         )
 
         viewHolder.cityNameTextView.text = getCityNameAndCountry(
