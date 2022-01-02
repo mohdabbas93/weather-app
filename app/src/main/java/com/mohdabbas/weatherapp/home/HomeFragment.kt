@@ -16,20 +16,45 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.mohdabbas.weatherapp.R
+import com.mohdabbas.weatherapp.data.source.WeatherRepository
+import com.mohdabbas.weatherapp.data.source.remote.WeatherApi
+import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
+import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
+    // Very stupid way to instantiate a view model, for it works for now
+    private val viewModel =
+        HomeViewModel(WeatherRepository(WeatherRemoteDataSource(WeatherApi.create())))
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setupObservers()
 
         val context = context
         if (context != null) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
             getLastLocation(context)
         }
+    }
 
+    private fun setupObservers() {
+        viewModel.weatherData.observe(this) {
+            // TODO: Date here not correct
+            dateAndTimeTextView.text = Date(it.currentWeather.currentUTCTime).toString()
+            currentTempTextView.text =
+                getString(R.string.current_temp, it.currentWeather.temperature.toInt())
+            weatherConditionTextView.text =
+                it.currentWeather.weather.firstOrNull()?.weatherCondition ?: ""
+            minAndMaxTempText.text =
+                getString(R.string.min_and_max_temp, 34, 34, it.currentWeather.feelsLike.toInt())
+
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -41,12 +66,7 @@ class HomeFragment : Fragment() {
                     if (location == null) {
                         Toast.makeText(context, "Location null", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(context, "Location not null", Toast.LENGTH_SHORT).show()
-                        Toast.makeText(
-                            context,
-                            "Lat: ${location.latitude}, Lng: ${location.longitude}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        viewModel.getWeatherData(location.latitude, location.longitude)
                     }
                 }
             } else {

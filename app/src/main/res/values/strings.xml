@@ -5,4 +5,6 @@
     <string name="home">Home</string>
     <string name="fav_cities">Favorite Cities</string>
     <string name="settings">Settings</string>
+    <string name="current_temp">%1$d°</string>
+    <string name="min_and_max_temp">%1$d° / %2$d° FeelsLike %3$df°</string>
 </resources>
