@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "city_weather")
 data class CityWeather(
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    val id: Int?,
     val lat: Double,
     val lng: Double,
     val timezone: String,
