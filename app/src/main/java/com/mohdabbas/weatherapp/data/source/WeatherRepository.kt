@@ -25,6 +25,6 @@ class WeatherRepository(
     }
 
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
-        TODO("Not yet implemented")
+        return localDataSource.getFavoriteCities()
     }
 }
