@@ -27,6 +27,7 @@ task clean(type: Delete) {
 
 ext {
     // App dependencies
+    archLifecycleVersion = '2.4.0'
     retrofitVersion = '2.9.0'
     httpLoggingInterceptorVersion = '4.9.3'
 }
