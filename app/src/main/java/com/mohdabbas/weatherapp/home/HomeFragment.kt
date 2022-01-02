@@ -21,7 +21,7 @@ import com.mohdabbas.weatherapp.data.source.WeatherRepository
 import com.mohdabbas.weatherapp.data.source.remote.WeatherApi
 import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
+import java.text.SimpleDateFormat
 
 class HomeFragment : Fragment() {
 
@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.weatherData.observe(this) {
-            // TODO: Date here not correct
-            dateAndTimeTextView.text = Date(it.currentWeather.currentUTCTime).toString()
+            dateAndTimeTextView.text =
+                SimpleDateFormat("EE d MMMM HH:mm a").format(it.currentWeather.currentUTCTime * 1000)
             currentTempTextView.text =
                 getString(R.string.current_temp, it.currentWeather.temperature.toInt())
             weatherConditionTextView.text =
