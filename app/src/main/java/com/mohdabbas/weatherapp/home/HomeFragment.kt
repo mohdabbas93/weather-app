@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
                 .load("http://openweathermap.org/img/wn/${it.currentWeather.weather.firstOrNull()?.icon}@2x.png")
                 .centerCrop()
                 .into(weatherConditionIcon)
-
+            adapter?.updateData(it.dailyWeather)
         }
     }
 
@@ -120,5 +120,18 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupDailyRecyclerView()
+    }
+
+    private var adapter: DailyWeatherAdapter? = null
+
+    private fun setupDailyRecyclerView() {
+        adapter = DailyWeatherAdapter(listOf(), requireContext())
+        dailyRecyclerView.adapter = adapter
     }
 }
