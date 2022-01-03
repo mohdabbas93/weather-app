@@ -42,6 +42,7 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         Glide.with(viewHolder.itemView.context)
             .load("http://openweathermap.org/img/wn/${data[position].weatherConditionIcon}@2x.png")
+            .error(R.drawable.ic_broken_image)
             .centerCrop()
             .into(viewHolder.weatherConditionIcon)
 
