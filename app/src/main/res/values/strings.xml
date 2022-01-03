@@ -17,4 +17,6 @@
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="select_temperature_unit">Select temperature unit</string>
+    <string name="temp_today_title">Temperature today</string>
+    <string name="temp_today_text">The temperature today is %1$d°</string>
 </resources>
