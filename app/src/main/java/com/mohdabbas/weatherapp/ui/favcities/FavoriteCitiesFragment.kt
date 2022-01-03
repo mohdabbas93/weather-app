@@ -22,7 +22,7 @@ class FavoriteCitiesFragment : Fragment() {
 
         persistenceManager = PersistenceManager(requireContext())
         setupObservers()
-        viewModel.getFavoriteCities()
+        //viewModel.getFavoriteCities()
     }
 
     private fun setupObservers() {
@@ -50,11 +50,12 @@ class FavoriteCitiesFragment : Fragment() {
     private fun setupFavoriteCitiesRecyclerView() {
         adapter = FavoriteCitiesAdapter(
             listOf(
-                FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
-                FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
-                FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
-                FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0),
-                FavoriteCity(1, 24.5, 53.4, 34.0, "Sunny", "0d2", 13.0, 34, 1234.0)
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
+                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
             ),
             persistenceManager.isCelsius
         )
