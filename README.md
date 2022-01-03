@@ -1,34 +1,31 @@
 # Weather Application
-A simple weather app to show you your current location weather.
-Weather data include:
-- Current tempreature.
-- Current temptreaue feels like. 
-- Weather conditoon.
-- Wind speed, humidity percentage and pressure.
-It also show you the daily weather for the next 7 days.
+A simple weather app to show you your current location weather. Weather data include:
+- Current temperature.
+- The current temperature feels like.
+- Weather condition.
+- Wind speed, humidity percentage, and pressure. It also shows you the daily weather for the next 7 days.
 
-This project contains of:
-
+This project contains:
 - Kotlin Coroutines for background operations.
-- MVVM acrchitcture.
-- ROOM for local data base.
+- MVVM architecture.
+- ROOM for the local database.
 - View model and live data.
-- A data layer with a reoisutory and two data sources (local using Room and remote).
+- A data layer with a repository and two data sources (local using Room and remote).
 - A collection of unit rest.
 - Bottom navigation to manage multiple fragments.
 
-Third party libraries used in this project:
-- [Glide](https://github.com/bumptech/glide): To load and show image.
-- [Retrofit](https://square.github.io/retrofit): To act as interface for the HTTP APIs.
+Third-party libraries used in this project:
+- [Glide](https://github.com/bumptech/glide): To load and show images.
+- [Retrofit](https://square.github.io/retrofit): To act as an interface for the HTTP APIs.
 
-The project consits of:
-- data: To act as the data latyer.
-- persistance: Persistance manager.
-- ui: Conatins the app pages.
+The project consists of:
+- data: To act as the data layer.
+- persistence: Persistence manager.
+- ui: Contains the app pages.
   - Home: Show your location weather.
   - Favorite cities: Show your favorite cities.
-  - Settings: For settings (Change tempreature unit)
-- utils: For utilties.
+  - Settings: For settings (Change temperature unit)
+- utils: For utilities.
 
 # Futrue work
 - Cash location and weather data in database.
