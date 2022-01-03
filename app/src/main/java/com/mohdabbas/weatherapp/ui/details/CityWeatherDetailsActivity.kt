@@ -10,6 +10,10 @@ class CityWeatherDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_weather_details)
 
+        openHomeFragment()
+    }
+
+    private fun openHomeFragment() {
         val lat = intent.getDoubleExtra("lat", 0.0)
         val lng = intent.getDoubleExtra("lng", 0.0)
 
