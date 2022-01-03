@@ -57,9 +57,16 @@ class HomeFragment : Fragment() {
 
         persistenceManager = PersistenceManager((requireContext()))
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        createLocationRequest()
-        getLastLocation(requireContext())
+        val lat = arguments?.getDouble("lat", 0.0)
+        val lng = arguments?.getDouble("lng", 0.0)
+
+        if (lat != null && lng != null) {
+            viewModel.getWeatherData(lat, lng)
+        } else {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            createLocationRequest()
+            getLastLocation(requireContext())
+        }
     }
 
     private fun createLocationRequest() {
