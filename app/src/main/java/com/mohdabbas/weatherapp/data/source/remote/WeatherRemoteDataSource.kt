@@ -4,6 +4,7 @@ import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
 import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
+import com.mohdabbas.weatherapp.util.ErrorType
 
 /**
  * Created by Mohammad Abbas
@@ -16,7 +17,7 @@ class WeatherRemoteDataSource(
         return try {
             Result.Success(weatherApi.getCityWeatherData(lat, lng))
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.Error(e, ErrorType.RemoteError)
         }
     }
 
