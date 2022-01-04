@@ -19,4 +19,6 @@
     <string name="select_temperature_unit">Select temperature unit</string>
     <string name="temp_today_title">Temperature today</string>
     <string name="temp_today_text">The temperature today is %1$d°</string>
+    <string name="retry">Retry</string>
+    <string name="data_error_text">Failed to get the data\n click to retry</string>
 </resources>

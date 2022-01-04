@@ -82,20 +82,20 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.loading.observe(this) {
-            makeGone(loadingView, mainView)
+            makeGone(loadingView, mainView, errorView)
             if (it) {
                 makeVisible(loadingView)
-            } else {
-                makeVisible(mainView)
             }
         }
 
         viewModel.weatherData.observe(this) {
             when (it) {
-                is Result.Success -> showWeatherData(it.data)
+                is Result.Success -> {
+                    makeVisible(mainView)
+                    showWeatherData(it.data)
+                }
                 is Result.Error -> {
-                    Toast.makeText(context, "Error getting the weather data", Toast.LENGTH_SHORT)
-                        .show()
+                    makeVisible(errorView)
                 }
             }
         }
