@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "daily_weather")
 data class DailyWeather(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = "current_utc_time")
     val currentUTCTime: Long,
     @ColumnInfo(name = "min_temperature")

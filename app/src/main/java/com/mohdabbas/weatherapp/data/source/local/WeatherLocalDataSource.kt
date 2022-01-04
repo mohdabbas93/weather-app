@@ -2,8 +2,10 @@ package com.mohdabbas.weatherapp.data.source.local
 
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
+import com.mohdabbas.weatherapp.data.source.local.entity.DailyWeather
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.data.source.remote.dto.CurrentWeatherDto
+import com.mohdabbas.weatherapp.data.source.remote.dto.DailyWeatherDto
 import com.mohdabbas.weatherapp.data.source.remote.dto.WeatherDto
 import com.mohdabbas.weatherapp.util.ErrorType
 
@@ -27,10 +29,13 @@ class WeatherLocalDataSource(
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
-        weatherDao.addWeatherData(cityWeatherDto.toEntity())
+        weatherDao.addWeatherData(
+            cityWeatherDto.toCityWeather(),
+            cityWeatherDto.dailyWeather.toDailyWeather()
+        )
     }
 
-    private fun CityWeatherDto.toEntity() = CityWeather(
+    private fun CityWeatherDto.toCityWeather() = CityWeather(
         1,
         lat,
         lng,
@@ -44,6 +49,17 @@ class WeatherLocalDataSource(
         currentWeather.weather.firstOrNull()?.weatherCondition ?: "",
         currentWeather.weather.firstOrNull()?.icon ?: ""
     )
+
+    private fun List<DailyWeatherDto>.toDailyWeather() = map {
+        DailyWeather(
+            id = null,
+            currentUTCTime = it.currentUTCTime,
+            minTemperature = it.temperature.minTemperature,
+            maxTemperature = it.temperature.maxTemperature,
+            weatherCondition = it.weather.firstOrNull()?.weatherCondition ?: "",
+            weatherConditionIcon = it.weather.firstOrNull()?.icon ?: ""
+        )
+    }
 
     private fun CityWeather.toDto() = CityWeatherDto(
         lat,
