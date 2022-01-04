@@ -287,7 +287,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupOnClickListeners() {
-        add_current_location_button.setOnClickListener {
+        addCurrentLocationButton.setOnClickListener {
             viewModel.setLoading()
             getLastLocation(requireContext())
         }
