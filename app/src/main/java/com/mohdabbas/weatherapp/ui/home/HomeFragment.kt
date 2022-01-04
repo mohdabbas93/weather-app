@@ -74,7 +74,6 @@ class HomeFragment : Fragment() {
         } else {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             createLocationRequest()
-            // getLastLocation(requireContext())
         }
     }
 
@@ -288,6 +287,10 @@ class HomeFragment : Fragment() {
 
     private fun setupOnClickListeners() {
         addCurrentLocationButton.setOnClickListener {
+            viewModel.setLoading()
+            getLastLocation(requireContext())
+        }
+        retryButton.setOnClickListener {
             viewModel.setLoading()
             getLastLocation(requireContext())
         }
