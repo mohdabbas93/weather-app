@@ -18,12 +18,17 @@ class HomeViewModel(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     private val _weatherData = MutableLiveData<Result<CityWeatherDto>>()
     val weatherData: LiveData<Result<CityWeatherDto>> = _weatherData
 
     fun getWeatherData(lat: Double, lng: Double) {
         viewModelScope.launch(Dispatchers.IO) {
+            _loading.postValue(true)
             val response = weatherRepository.getWeatherData(lat, lng)
+            _loading.postValue(false)
             _weatherData.postValue(response)
         }
     }

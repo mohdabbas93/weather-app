@@ -5,229 +5,246 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="12dp"
-        tools:context=".ui.home.HomeFragment">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/locationIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/locationNameTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <TextView
-            android:id="@+id/locationNameTextView"
+        <ProgressBar
+            android:id="@+id/loadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.519"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationIcon"
-            tools:text="Khartoum" />
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/dateAndTimeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/currentTempTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationNameTextView"
-            tools:text="Fri 13 December 4:17 pm" />
-
-        <ImageView
-            android:id="@+id/weatherConditionIcon"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="11dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/currentTempTextView"
-            app:layout_constraintTop_toBottomOf="@+id/dateAndTimeTextView"
-            app:layout_constraintVertical_bias="0.259"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/currentTempTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:textColor="@android:color/black"
-            android:textSize="80sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateAndTimeTextView"
-            tools:text="34°" />
-
-        <TextView
-            android:id="@+id/weatherConditionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currentTempTextView"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="sunny" />
-
-        <TextView
-            android:id="@+id/minAndMaxTempText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherConditionTextView"
-            tools:text="34/34 FeelsLike 34" />
-
-        <TextView
-            android:id="@+id/dailyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="@string/daily"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/dailyRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Daily" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dailyRecyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:itemCount="6"
-            tools:listitem="@layout/item_weather_daily">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <LinearLayout
-            android:id="@+id/windLayout"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:visibility="gone"
+            tools:context=".ui.home.HomeFragment">
 
             <ImageView
-                android:id="@+id/windIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_wind" />
+                android:id="@+id/locationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toTopOf="@+id/locationNameTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
             <TextView
-                android:id="@+id/windSpeedTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/locationNameTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="13 km/h" />
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="34sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.519"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationIcon"
+                tools:text="Khartoum" />
 
             <TextView
-                android:id="@+id/windTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/dateAndTimeTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wind"
-                android:textAlignment="center"
-                tools:text="Wind" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/humidityLayout"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
-            app:layout_constraintEnd_toStartOf="@+id/pressureLayout"
-            app:layout_constraintStart_toEndOf="@+id/windLayout"
-            app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/currentTempTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationNameTextView"
+                tools:text="Fri 13 December 4:17 pm" />
 
             <ImageView
-                android:id="@+id/humidityIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_humidity" />
+                android:id="@+id/weatherConditionIcon"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="11dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/currentTempTextView"
+                app:layout_constraintTop_toBottomOf="@+id/dateAndTimeTextView"
+                app:layout_constraintVertical_bias="0.259"
+                tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/humiditySpeedTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/currentTempTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="13 km/h" />
+                android:layout_marginTop="48dp"
+                android:textColor="@android:color/black"
+                android:textSize="80sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateAndTimeTextView"
+                tools:text="34°" />
 
             <TextView
-                android:id="@+id/humidityText"
-                android:layout_width="match_parent"
+                android:id="@+id/weatherConditionTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/humidity"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pressureLayout"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
-
-            <ImageView
-                android:id="@+id/pressureIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_pressure" />
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentTempTextView"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="sunny" />
 
             <TextView
-                android:id="@+id/pressureSpeedTextView"
-                android:layout_width="match_parent"
+                android:id="@+id/minAndMaxTempText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                tools:text="13 km/h" />
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weatherConditionTextView"
+                tools:text="34/34 FeelsLike 34" />
 
             <TextView
-                android:id="@+id/pressureText"
+                android:id="@+id/dailyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="@string/daily"
+                android:textColor="#020202"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/dailyRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Daily" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dailyRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pressure"
-                android:textAlignment="center" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:itemCount="6"
+                tools:listitem="@layout/item_weather_daily">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/windLayout"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
+
+                <ImageView
+                    android:id="@+id/windIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_wind" />
+
+                <TextView
+                    android:id="@+id/windSpeedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    tools:text="13 km/h" />
+
+                <TextView
+                    android:id="@+id/windTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind"
+                    android:textAlignment="center"
+                    tools:text="Wind" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/humidityLayout"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toStartOf="@+id/pressureLayout"
+                app:layout_constraintStart_toEndOf="@+id/windLayout"
+                app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
+
+                <ImageView
+                    android:id="@+id/humidityIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_humidity" />
+
+                <TextView
+                    android:id="@+id/humiditySpeedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    tools:text="13 km/h" />
+
+                <TextView
+                    android:id="@+id/humidityText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/humidity"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pressureLayout"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/minAndMaxTempText">
+
+                <ImageView
+                    android:id="@+id/pressureIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pressure" />
+
+                <TextView
+                    android:id="@+id/pressureSpeedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    tools:text="13 km/h" />
+
+                <TextView
+                    android:id="@+id/pressureText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pressure"
+                    android:textAlignment="center" />
+            </LinearLayout>
 
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/dailyTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toTopOf="@+id/dailyTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
 </ScrollView>

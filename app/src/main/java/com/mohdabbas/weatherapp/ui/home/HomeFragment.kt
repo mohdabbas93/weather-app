@@ -29,6 +29,8 @@ import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -79,6 +81,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        viewModel.loading.observe(this) {
+            makeGone(loadingView, mainView)
+            if (it) {
+                makeVisible(loadingView)
+            } else {
+                makeVisible(mainView)
+            }
+        }
+
         viewModel.weatherData.observe(this) {
             when (it) {
                 is Result.Success -> showWeatherData(it.data)
