@@ -21,7 +21,6 @@ class HomeViewModel(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-
     fun getCurrentLocationWeatherData() {
         viewModelScope.launch(Dispatchers.IO) {
             _loading.postValue(true)
@@ -29,6 +28,10 @@ class HomeViewModel(
             _loading.postValue(false)
             _weatherData.postValue(response)
         }
+    }
+
+    fun setLoading() {
+        _loading.value = true
     }
 
     private val _weatherData = MutableLiveData<Result<CityWeatherDto>>()

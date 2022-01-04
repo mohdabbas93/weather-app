@@ -225,19 +225,19 @@ class HomeFragment : Fragment() {
         resolutionForResultLauncher.launch(intentSenderRequest)
     }
 
-    private fun requestPermission() {
-        val requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                val context = context
-                if (context != null) getLastLocation(context)
-            } else {
-                Toast.makeText(context, "Location permission not granted", Toast.LENGTH_SHORT)
-                    .show()
-            }
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            val context = context
+            if (context != null) getLastLocation(context)
+        } else {
+            Toast.makeText(context, "Location permission not granted", Toast.LENGTH_SHORT)
+                .show()
         }
+    }
 
+    private fun requestPermission() {
         requestPermissionLauncher.launch(
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
@@ -282,7 +282,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupOnClickListeners()
         setupDailyRecyclerView()
+    }
+
+    private fun setupOnClickListeners() {
+        add_current_location_button.setOnClickListener {
+            viewModel.setLoading()
+            getLastLocation(requireContext())
+        }
     }
 
     private var adapter: DailyWeatherAdapter? = null
