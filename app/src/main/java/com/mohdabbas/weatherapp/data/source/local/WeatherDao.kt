@@ -2,6 +2,7 @@ package com.mohdabbas.weatherapp.data.source.local
 
 import androidx.room.*
 import com.mohdabbas.weatherapp.data.source.local.entity.DailyWeather
+import com.mohdabbas.weatherapp.data.source.local.entity.relation.CityWeatherWithDailyWeathers
 
 /**
  * Created by Mohammad Abbas
@@ -26,6 +27,9 @@ interface WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDailyWeathersData(dailyWeather: List<DailyWeather>)
+
+    @Query("SELECT * FROM city_weather WHERE id = :cityWeatherId")
+    suspend fun getWeatherDataById(cityWeatherId: Int): CityWeatherWithDailyWeathers
 
     @Query("SELECT * FROM favorite_cities")
     suspend fun getFavoriteCities(): List<FavoriteCity>
