@@ -12,6 +12,8 @@ import androidx.room.PrimaryKey
 data class DailyWeather(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
+    @ColumnInfo(name = "city_weather_id")
+    val cityWeatherId: Int,
     @ColumnInfo(name = "current_utc_time")
     val currentUTCTime: Long,
     @ColumnInfo(name = "min_temperature")

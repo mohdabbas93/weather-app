@@ -53,6 +53,7 @@ class WeatherLocalDataSource(
     private fun List<DailyWeatherDto>.toDailyWeather() = map {
         DailyWeather(
             id = null,
+            cityWeatherId = 1,
             currentUTCTime = it.currentUTCTime,
             minTemperature = it.temperature.minTemperature,
             maxTemperature = it.temperature.maxTemperature,
