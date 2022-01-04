@@ -13,6 +13,10 @@ import com.mohdabbas.weatherapp.util.ErrorType
 class WeatherRemoteDataSource(
     private val weatherApi: WeatherApi
 ) : WeatherDataSource {
+    override suspend fun getCurrentLocationWeatherData(): Result<CityWeatherDto> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto> {
         return try {
             Result.Success(weatherApi.getCityWeatherData(lat, lng))

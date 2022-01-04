@@ -13,6 +13,7 @@ import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
  * Main entry points for accessing weather data.
  */
 interface WeatherDataSource {
+    suspend fun getCurrentLocationWeatherData(): Result<CityWeatherDto>
     suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto>
     suspend fun addWeatherData(cityWeatherDto: CityWeatherDto)
     suspend fun getFavoriteCities(): List<FavoriteCity>
