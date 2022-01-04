@@ -1,5 +1,6 @@
 package com.mohdabbas.weatherapp.data.source.remote
 
+import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
 import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
@@ -11,8 +12,12 @@ import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 class WeatherRemoteDataSource(
     private val weatherApi: WeatherApi
 ) : WeatherDataSource {
-    override suspend fun getWeatherData(lat: Double, lng: Double): CityWeatherDto {
-        return weatherApi.getCityWeatherData(lat, lng)
+    override suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto> {
+        return try {
+            Result.Success(weatherApi.getCityWeatherData(lat, lng))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {

@@ -1,5 +1,6 @@
 package com.mohdabbas.weatherapp.data.source.local
 
+import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 
@@ -10,7 +11,7 @@ import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 class WeatherLocalDataSource(
     private val weatherDao: WeatherDao
 ) : WeatherDataSource {
-    override suspend fun getWeatherData(lat: Double, lng: Double): CityWeatherDto {
+    override suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto> {
         TODO("Not yet implemented")
     }
 

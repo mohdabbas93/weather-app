@@ -25,6 +25,8 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.data.Result
+import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -78,39 +80,60 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.weatherData.observe(this) {
-            locationNameTextView.text = getLocationName(it.lat, it.lng)
-            dateAndTimeTextView.text =
-                SimpleDateFormat("EE d MMMM HH:mm a").format(it.currentWeather.currentUTCTime * 1000)
-            currentTempTextView.text =
-                getString(
-                    R.string.current_temp,
-                    it.currentWeather.temperature.convertTemperature(persistenceManager.isCelsius)
-                        .toInt()
-                )
-            weatherConditionTextView.text =
-                it.currentWeather.weather.firstOrNull()?.weatherCondition ?: ""
-            minAndMaxTempText.text =
-                getString(
-                    R.string.feels_like_temp,
-                    it.currentWeather.feelsLike.convertTemperature(persistenceManager.isCelsius)
-                        .toInt()
-                )
-
-            Glide.with(this)
-                .load("http://openweathermap.org/img/wn/${it.currentWeather.weather.firstOrNull()?.icon}@2x.png")
-                .centerCrop()
-                .into(weatherConditionIcon)
-            adapter?.updateData(it.dailyWeather)
-
-            windSpeedTextView.text =
-                getString(R.string.wind_speed_template, it.currentWeather.windSpeed.toInt())
-
-            humiditySpeedTextView.text =
-                getString(R.string.humidity_template, it.currentWeather.humidity)
-
-            pressureSpeedTextView.text =
-                getString(R.string.pressure_template, it.currentWeather.pressure.toInt())
+            when (it) {
+                is Result.Success -> showWeatherData(it.data)
+                is Result.Error -> {
+                    Toast.makeText(context, "Error getting the weather data", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
+    }
+
+    private fun showWeatherData(weatherData: CityWeatherDto) {
+
+        locationNameTextView.text = getLocationName(weatherData.lat, weatherData.lng)
+        dateAndTimeTextView.text =
+            SimpleDateFormat("EE d MMMM HH:mm a").format(weatherData.currentWeather.currentUTCTime * 1000)
+        currentTempTextView.text =
+            getString(
+                R.string.current_temp,
+                weatherData.currentWeather.temperature.convertTemperature(
+                    persistenceManager.isCelsius
+                )
+                    .toInt()
+            )
+        weatherConditionTextView.text =
+            weatherData.currentWeather.weather.firstOrNull()?.weatherCondition ?: ""
+        minAndMaxTempText.text =
+            getString(
+                R.string.feels_like_temp,
+                weatherData.currentWeather.feelsLike.convertTemperature(
+                    persistenceManager.isCelsius
+                )
+                    .toInt()
+            )
+
+        Glide.with(this)
+            .load("http://openweathermap.org/img/wn/${weatherData.currentWeather.weather.firstOrNull()?.icon}@2x.png")
+            .centerCrop()
+            .into(weatherConditionIcon)
+        adapter?.updateData(weatherData.dailyWeather)
+
+        windSpeedTextView.text =
+            getString(
+                R.string.wind_speed_template,
+                weatherData.currentWeather.windSpeed.toInt()
+            )
+
+        humiditySpeedTextView.text =
+            getString(R.string.humidity_template, weatherData.currentWeather.humidity)
+
+        pressureSpeedTextView.text =
+            getString(
+                R.string.pressure_template,
+                weatherData.currentWeather.pressure.toInt()
+            )
     }
 
     private fun getLocationName(lat: Double, lng: Double): String {
