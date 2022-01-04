@@ -29,21 +29,3 @@ data class CityWeather(
     @ColumnInfo(name = "weather_condition_icon")
     val weatherConditionIcon: String,
 )
-
-@Entity(tableName = "daily_weather")
-data class DailyWeather(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    @ColumnInfo(name = "current_utc_time")
-    val currentUTCTime: Long,
-    @ColumnInfo(name = "min_temperature")
-    val minTemperature: Double,
-    @ColumnInfo(name = "max_temperature")
-    val maxTemperature: Double,
-    @ColumnInfo(name = "weather_condition")
-    val weatherCondition: String,
-    @ColumnInfo(name = "weather_condition_icon")
-    val weatherConditionIcon: String,
-)
-
-
