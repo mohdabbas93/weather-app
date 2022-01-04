@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "city_weather")
 data class CityWeather(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    @PrimaryKey
+    val id: Int,
     val lat: Double,
     val lng: Double,
     val timezone: String,

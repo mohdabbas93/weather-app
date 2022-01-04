@@ -31,7 +31,7 @@ class WeatherLocalDataSource(
     }
 
     private fun CityWeatherDto.toEntity() = CityWeather(
-        null,
+        1,
         lat,
         lng,
         timezone,
