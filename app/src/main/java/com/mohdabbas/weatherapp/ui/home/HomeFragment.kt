@@ -28,6 +28,7 @@ import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
+import com.mohdabbas.weatherapp.util.ErrorType
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
@@ -58,8 +59,12 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setupObservers()
+        viewModel.getCurrentLocationWeatherData()
 
         persistenceManager = PersistenceManager((requireContext()))
+
+        // First get data if not exist as to get location and not refresh data
+        // if there is data then refresh
 
         val lat = arguments?.getDouble("lat", 0.0)
         val lng = arguments?.getDouble("lng", 0.0)
@@ -69,7 +74,7 @@ class HomeFragment : Fragment() {
         } else {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             createLocationRequest()
-            getLastLocation(requireContext())
+            // getLastLocation(requireContext())
         }
     }
 
@@ -82,7 +87,7 @@ class HomeFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.loading.observe(this) {
-            makeGone(loadingView, mainView, errorView)
+            makeGone(loadingView, mainView, errorView, noSavedDataView)
             if (it) {
                 makeVisible(loadingView)
             }
@@ -95,7 +100,11 @@ class HomeFragment : Fragment() {
                     showWeatherData(it.data)
                 }
                 is Result.Error -> {
-                    makeVisible(errorView)
+                    if (it.errorType == ErrorType.NoSavedData) {
+                        makeVisible(noSavedDataView)
+                    } else {
+                        makeVisible(errorView)
+                    }
                 }
             }
         }

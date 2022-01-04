@@ -21,4 +21,6 @@
     <string name="temp_today_text">The temperature today is %1$d°</string>
     <string name="retry">Retry</string>
     <string name="data_error_text">Failed to get the data\n click to retry</string>
+    <string name="no_data_saved">No data saved</string>
+    <string name="add_current_location">Add current location</string>
 </resources>
