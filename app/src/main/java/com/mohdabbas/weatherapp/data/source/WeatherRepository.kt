@@ -27,7 +27,7 @@ class WeatherRepository(
         if (remoteResult is Result.Success) {
             localDataSource.addWeatherData(remoteResult.data)
         }
-        return remoteResult
+        return getCurrentLocationWeatherData()
     }
 
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
