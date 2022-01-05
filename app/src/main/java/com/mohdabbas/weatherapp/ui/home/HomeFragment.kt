@@ -10,12 +10,11 @@ import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -283,18 +282,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupTheToolbar()
+        (activity as AppCompatActivity).setSupportActionBar(homeToolbar)
+        setHasOptionsMenu(true)
+
         setupOnClickListeners()
         setupDailyRecyclerView()
-    }
-
-    private fun setupTheToolbar() {
-        homeToolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.search) {
-                navigateCitySearchActivity()
-            }
-            true
-        }
     }
 
     private fun navigateCitySearchActivity() {
@@ -322,5 +314,17 @@ class HomeFragment : Fragment() {
                 RecyclerViewUtil.SpaceType.Horizontal
             )
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.search) {
+            navigateCitySearchActivity()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
