@@ -1,5 +1,6 @@
 package com.mohdabbas.weatherapp.ui.search
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
+import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
 import kotlinx.android.synthetic.main.item_city_search.view.*
 
 /**
@@ -31,6 +33,16 @@ class CitySearchResultsAdapter(private var data: List<CitySearchDto>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.cityNameTextView.text = data[position].name
         viewHolder.countryNameTextView.text = data[position].country.name
+        viewHolder.itemView.apply {
+            setOnClickListener {
+                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
+
+                intent.putExtra("lat", data[position].coordinates.latitude)
+                intent.putExtra("lng", data[position].coordinates.longitude)
+
+                context.startActivity(intent)
+            }
+        }
     }
 
     override fun getItemCount() = data.size
