@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Rect
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
@@ -18,7 +17,6 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
@@ -29,6 +27,7 @@ import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import com.mohdabbas.weatherapp.util.ErrorType
+import com.mohdabbas.weatherapp.util.RecyclerViewUtil
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
@@ -74,6 +73,7 @@ class HomeFragment : Fragment() {
         } else {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             createLocationRequest()
+            // TODO: Get location to update last location
         }
     }
 
@@ -301,24 +301,10 @@ class HomeFragment : Fragment() {
     private fun setupDailyRecyclerView() {
         adapter = DailyWeatherAdapter(listOf(), persistenceManager.isCelsius)
         dailyRecyclerView.adapter = adapter
-
-        addDecorationForRecyclerView()
-    }
-
-    private fun addDecorationForRecyclerView() {
-        val itemDecoration = object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                super.getItemOffsets(outRect, view, parent, state)
-                outRect.left = 15
-                outRect.right = 15
-            }
-        }
-
-        dailyRecyclerView.addItemDecoration(itemDecoration)
+        dailyRecyclerView.addItemDecoration(
+            RecyclerViewUtil.addSpacingDecorationForRecyclerView(
+                RecyclerViewUtil.SpaceType.Horizontal
+            )
+        )
     }
 }
