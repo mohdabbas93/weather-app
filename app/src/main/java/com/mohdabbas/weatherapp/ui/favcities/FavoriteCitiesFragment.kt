@@ -7,19 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
-import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
 class FavoriteCitiesFragment : Fragment() {
 
-    // TODO: Refactor this later
-    private lateinit var persistenceManager: PersistenceManager
     private val viewModel = FavoriteCitiesViewModel(WeatherApplication.WeatherRepository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        persistenceManager = PersistenceManager(requireContext())
         setupObservers()
         viewModel.getFavoriteCities()
     }
