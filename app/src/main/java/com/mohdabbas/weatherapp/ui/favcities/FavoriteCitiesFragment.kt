@@ -47,7 +47,7 @@ class FavoriteCitiesFragment : Fragment() {
     private var adapter: FavoriteCitiesAdapter? = null
 
     private fun setupFavoriteCitiesRecyclerView() {
-        adapter = FavoriteCitiesAdapter(listOf(), persistenceManager.isCelsius)
+        adapter = FavoriteCitiesAdapter(listOf())
         favCitiesRecyclerView.adapter = adapter
     }
 }

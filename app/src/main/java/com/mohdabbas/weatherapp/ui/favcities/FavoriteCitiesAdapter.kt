@@ -1,15 +1,16 @@
 package com.mohdabbas.weatherapp.ui.favcities
 
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.local.CityWeather
+import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
 import kotlinx.android.synthetic.main.item_fav_city.view.*
 import java.io.IOException
 import java.util.*
@@ -18,14 +19,12 @@ import java.util.*
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class FavoriteCitiesAdapter(private var data: List<CityWeather>, private val isCelsius: Boolean) :
+class FavoriteCitiesAdapter(private var data: List<CityWeather>) :
     RecyclerView.Adapter<FavoriteCitiesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val weatherConditionIcon: ImageView = view.weatherConditionIcon
-        val currentTempTextView: TextView = view.currentTempTextView
-        val weatherConditionTextView: TextView = view.weatherConditionTextView
         val cityNameTextView: TextView = view.cityNameTextView
+        val countryNameTextView: TextView = view.countryNameTextView
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -36,35 +35,25 @@ class FavoriteCitiesAdapter(private var data: List<CityWeather>, private val isC
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-//        Glide.with(viewHolder.itemView.context)
-//            .load("http://openweathermap.org/img/wn/${data[position].weatherConditionIcon}@2x.png")
-//            .error(R.drawable.ic_broken_image)
-//            .centerCrop()
-//            .into(viewHolder.weatherConditionIcon)
-//
-//        viewHolder.weatherConditionTextView.text = data[position].weatherCondition
-//
-//        viewHolder.currentTempTextView.text = viewHolder.itemView.context.getString(
-//            R.string.current_temp,
-//            data[position].currentTemperature.convertTemperature(isCelsius).toInt()
-//        )
-//
-//        viewHolder.cityNameTextView.text = getCityNameAndCountry(
-//            viewHolder.itemView.context,
-//            data[position].lat,
-//            data[position].lng
-//        )
-//
-//        viewHolder.itemView.apply {
-//            setOnClickListener {
-//                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
-//
-//                intent.putExtra("lat", data[position].lat)
-//                intent.putExtra("lng", data[position].lng)
-//
-//                context.startActivity(intent)
-//            }
-//        }
+        val (cityName, countryName) = getCityNameAndCountry(
+            viewHolder.itemView.context,
+            data[position].lat,
+            data[position].lng
+        )
+
+        viewHolder.cityNameTextView.text = cityName
+        viewHolder.countryNameTextView.text = countryName
+
+        viewHolder.itemView.apply {
+            setOnClickListener {
+                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
+
+                intent.putExtra("lat", data[position].lat)
+                intent.putExtra("lng", data[position].lng)
+
+                context.startActivity(intent)
+            }
+        }
     }
 
     override fun getItemCount() = data.size
@@ -73,15 +62,15 @@ class FavoriteCitiesAdapter(private var data: List<CityWeather>, private val isC
         context: Context,
         lat: Double,
         lng: Double
-    ): String {
+    ): Pair<String, String> {
         try {
             val addresses = Geocoder(context, Locale.getDefault()).getFromLocation(lat, lng, 1)
-            return "${addresses[0].adminArea}, ${addresses[0].countryName}"
+            return addresses[0].adminArea to addresses[0].countryName
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
-        return ""
+        return "" to ""
     }
 
     fun updateData(newData: List<CityWeather>) {
