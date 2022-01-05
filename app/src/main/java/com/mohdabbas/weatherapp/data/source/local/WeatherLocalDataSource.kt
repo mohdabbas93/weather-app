@@ -3,10 +3,8 @@ package com.mohdabbas.weatherapp.data.source.local
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
 import com.mohdabbas.weatherapp.data.source.local.entity.DailyWeather
-import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
-import com.mohdabbas.weatherapp.data.source.remote.dto.CurrentWeatherDto
-import com.mohdabbas.weatherapp.data.source.remote.dto.DailyWeatherDto
-import com.mohdabbas.weatherapp.data.source.remote.dto.WeatherDto
+import com.mohdabbas.weatherapp.data.source.local.entity.relation.CityWeatherWithDailyWeathers
+import com.mohdabbas.weatherapp.data.source.remote.dto.*
 import com.mohdabbas.weatherapp.util.ErrorType
 
 /**
@@ -18,7 +16,7 @@ class WeatherLocalDataSource(
 ) : WeatherDataSource {
     override suspend fun getCurrentLocationWeatherData(): Result<CityWeatherDto> {
         return try {
-            Result.Success(weatherDao.getWeatherData().first().toDto())
+            Result.Success(weatherDao.getWeatherData().first().toCityWeatherDto())
         } catch (e: Exception) {
             Result.Error(e, ErrorType.NoSavedData)
         }
@@ -62,28 +60,44 @@ class WeatherLocalDataSource(
         )
     }
 
-    private fun CityWeather.toDto() = CityWeatherDto(
-        lat,
-        lng,
-        timezone,
+    private fun CityWeatherWithDailyWeathers.toCityWeatherDto() = CityWeatherDto(
+        cityWeather.lat,
+        cityWeather.lng,
+        cityWeather.timezone,
         CurrentWeatherDto(
-            currentUTCTime,
-            temperature,
-            feelsLike,
-            pressure,
-            humidity,
-            windSpeed,
+            cityWeather.currentUTCTime,
+            cityWeather.temperature,
+            cityWeather.feelsLike,
+            cityWeather.pressure,
+            cityWeather.humidity,
+            cityWeather.windSpeed,
             listOf(
                 WeatherDto(
 
-                    weatherCondition ?: "",
-                    weatherConditionIcon ?: ""
+                    cityWeather.weatherCondition,
+                    cityWeather.weatherConditionIcon
                 )
             ),
         ),
         listOf(),
-        listOf()
+        dailyWeathers.toDailyWeatherDto()
     )
+
+    private fun List<DailyWeather>.toDailyWeatherDto() = map {
+        DailyWeatherDto(
+            currentUTCTime = it.currentUTCTime,
+            weather = listOf(
+                WeatherDto(
+                    weatherCondition = it.weatherCondition,
+                    icon = it.weatherConditionIcon
+                )
+            ),
+            temperature = TemperatureDto(
+                minTemperature = it.minTemperature,
+                maxTemperature = it.maxTemperature
+            )
+        )
+    }
 
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
         return weatherDao.getFavoriteCities()

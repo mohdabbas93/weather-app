@@ -11,7 +11,7 @@ import com.mohdabbas.weatherapp.data.source.local.entity.relation.CityWeatherWit
 @Dao
 interface WeatherDao {
     @Query("SELECT * FROM city_weather")
-    suspend fun getWeatherData(): List<CityWeather>
+    suspend fun getWeatherData(): List<CityWeatherWithDailyWeathers>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWeatherData(cityWeather: CityWeather)
