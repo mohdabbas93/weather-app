@@ -22,6 +22,10 @@ interface WeatherDao {
     @Query("SELECT * FROM favorite_cities")
     suspend fun getFavoriteCities(): List<FavoriteCity>
 
+    // TODO: Test this later
+    @Query("SELECT Count(*) FROM city_weather WHERE Cast(lat AS int) = :lat and Cast(lng AS int) = :lng")
+    suspend fun isCityFavoriteExist(lat: Int, lng: Int): Long
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFavoriteCity(favoriteCityWeather: FavoriteCity)
 

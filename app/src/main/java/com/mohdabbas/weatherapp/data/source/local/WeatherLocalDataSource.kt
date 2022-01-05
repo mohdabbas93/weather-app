@@ -102,4 +102,8 @@ class WeatherLocalDataSource(
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
         return weatherDao.getFavoriteCities()
     }
+
+    override suspend fun isCityFavorite(lat: Double, lng: Double): Boolean {
+        return weatherDao.isCityFavoriteExist(lat.toInt(), lng.toInt()) > 0
+    }
 }

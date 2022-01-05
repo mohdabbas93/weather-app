@@ -32,4 +32,8 @@ class WeatherRemoteDataSource(
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun isCityFavorite(lat: Double, lng: Double): Boolean {
+        TODO("Not yet implemented")
+    }
 }

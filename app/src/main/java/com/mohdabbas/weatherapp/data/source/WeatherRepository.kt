@@ -37,4 +37,8 @@ class WeatherRepository(
     override suspend fun getFavoriteCities(): List<FavoriteCity> {
         return localDataSource.getFavoriteCities()
     }
+
+    override suspend fun isCityFavorite(lat: Double, lng: Double): Boolean {
+        return localDataSource.isCityFavorite(lat, lng)
+    }
 }
