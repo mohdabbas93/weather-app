@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.LocationManager
@@ -26,6 +27,7 @@ import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
+import com.mohdabbas.weatherapp.ui.search.CitySearchActivity
 import com.mohdabbas.weatherapp.util.ErrorType
 import com.mohdabbas.weatherapp.util.RecyclerViewUtil
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
@@ -281,8 +283,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupTheToolbar()
         setupOnClickListeners()
         setupDailyRecyclerView()
+    }
+
+    private fun setupTheToolbar() {
+        homeToolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.search) {
+                navigateCitySearchActivity()
+            }
+            true
+        }
+    }
+
+    private fun navigateCitySearchActivity() {
+        startActivity(Intent(context, CitySearchActivity::class.java))
     }
 
     private fun setupOnClickListeners() {
