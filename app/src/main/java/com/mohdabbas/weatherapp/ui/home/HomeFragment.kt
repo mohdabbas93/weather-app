@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
         }
 
     private var isDetailsPage = false
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -327,8 +328,12 @@ class HomeFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         menu.findItem(R.id.search).isVisible = !isDetailsPage
-        menu.findItem(R.id.favorite).isVisible = isDetailsPage
-
+        menu.findItem(R.id.favorite).apply {
+            isVisible = isDetailsPage
+            val iconRes =
+                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_outlined
+            icon = ContextCompat.getDrawable(requireContext(), iconRes);
+        }
         super.onPrepareOptionsMenu(menu)
     }
 
