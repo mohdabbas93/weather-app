@@ -42,11 +42,13 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCityWeatherData(cityWeather: CityWeather)
 
-    //Read
     @Transaction
     @Query("SELECT * FROM city_weather WHERE is_default = 1")
     suspend fun getDefaultCityWeatherData(): CityWeatherWithDailyWeathers
-    // 2. Get favorite cities
+
+    @Transaction
+    @Query("SELECT * FROM city_weather WHERE is_default = 0")
+    suspend fun getFavoriteCitiesWeathersData(): List<CityWeatherWithDailyWeathers>
 
     // Update
 
