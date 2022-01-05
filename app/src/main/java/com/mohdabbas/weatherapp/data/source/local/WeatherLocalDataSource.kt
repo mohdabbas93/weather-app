@@ -26,15 +26,15 @@ class WeatherLocalDataSource(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto) {
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean) {
         weatherDao.addWeatherData(
-            cityWeatherDto.toCityWeather(),
+            cityWeatherDto.toCityWeather(isDefault),
             cityWeatherDto.dailyWeather.toDailyWeather()
         )
     }
 
-    private fun CityWeatherDto.toCityWeather() = CityWeather(
-        1,
+    private fun CityWeatherDto.toCityWeather(isDefault: Boolean) = CityWeather(
+        null,
         lat,
         lng,
         timezone,
@@ -45,7 +45,8 @@ class WeatherLocalDataSource(
         currentWeather.humidity,
         currentWeather.windSpeed,
         currentWeather.weather.firstOrNull()?.weatherCondition ?: "",
-        currentWeather.weather.firstOrNull()?.icon ?: ""
+        currentWeather.weather.firstOrNull()?.icon ?: "",
+        isDefault
     )
 
     private fun List<DailyWeatherDto>.toDailyWeather() = map {

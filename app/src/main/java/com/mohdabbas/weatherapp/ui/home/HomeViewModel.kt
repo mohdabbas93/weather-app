@@ -55,4 +55,13 @@ class HomeViewModel(
             _isCityFavorite.postValue(response)
         }
     }
+
+    fun addFavoriteCity() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = weatherData.value
+            if (result is Result.Success) {
+                weatherRepository.addWeatherData(result.data, isDefault = false)
+            }
+        }
+    }
 }
