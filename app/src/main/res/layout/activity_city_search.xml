@@ -7,7 +7,7 @@
     tools:context=".ui.search.CitySearchActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
+        android:id="@+id/citySearchInputEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/search"
@@ -22,7 +22,7 @@
         android:text="@string/search"
         app:layout_constraintBottom_toTopOf="@+id/citySearchResult"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/citySearchInputEditText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/citySearchResult"
