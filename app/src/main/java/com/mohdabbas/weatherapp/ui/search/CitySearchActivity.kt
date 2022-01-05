@@ -7,6 +7,8 @@ import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
+import com.mohdabbas.weatherapp.util.RecyclerViewUtil
+import com.mohdabbas.weatherapp.util.RecyclerViewUtil.addSpacingDecorationForRecyclerView
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.activity_city_search.*
@@ -39,6 +41,11 @@ class CitySearchActivity : AppCompatActivity() {
     private fun setupCitySearchResultsAdapter() {
         adapter = CitySearchResultsAdapter(listOf())
         citySearchResultsRecyclerView.adapter = adapter
+        citySearchResultsRecyclerView.addItemDecoration(
+            addSpacingDecorationForRecyclerView(
+                RecyclerViewUtil.SpaceType.Vertical
+            )
+        )
     }
 
     private fun setupObservers() {
