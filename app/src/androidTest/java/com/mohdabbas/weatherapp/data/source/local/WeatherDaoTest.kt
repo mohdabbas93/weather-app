@@ -8,6 +8,7 @@ import com.mohdabbas.weatherapp.TestUtil
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -85,5 +86,15 @@ class WeatherDaoTest {
         val result = dao.getDefaultCityWeatherData()
 
         assertEquals(defaultCityWeather, result)
+    }
+
+    @Test
+    fun addAndGetFavoriteCityWeatherData() = runBlocking {
+        val favCityWeather = TestUtil.createCityWeather(isDefault = false)
+
+        dao.addWeatherData(favCityWeather.cityWeather, favCityWeather.dailyWeathers)
+        val result = dao.getFavoriteCitiesWeathersData()
+
+        assertTrue(result.contains(favCityWeather))
     }
 }
