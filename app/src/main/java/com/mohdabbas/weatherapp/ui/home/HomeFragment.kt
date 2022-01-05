@@ -55,6 +55,8 @@ class HomeFragment : Fragment() {
                 getLastLocation(requireContext())
         }
 
+    private var isDetailsPage = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,8 +72,10 @@ class HomeFragment : Fragment() {
         val lng = arguments?.getDouble("lng", 0.0)
 
         if (lat != null && lng != null) {
+            isDetailsPage = true
             viewModel.getWeatherData(lat, lng)
         } else {
+            isDetailsPage = false
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             createLocationRequest()
             // TODO: Get location to update last location
@@ -319,6 +323,13 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
         return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.search).isVisible = !isDetailsPage
+        menu.findItem(R.id.favorite).isVisible = isDetailsPage
+
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
