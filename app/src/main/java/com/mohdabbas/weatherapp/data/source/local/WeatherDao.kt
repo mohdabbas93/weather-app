@@ -52,5 +52,15 @@ interface WeatherDao {
 
     // Update
 
-    // Delete
+    @Transaction
+    suspend fun deleteFavoriteCityWeatherDataById(cityWeatherId: Int) {
+        deleteFavoriteCityById(cityWeatherId)
+        deleteDailyCityWeatherById(cityWeatherId)
+    }
+
+    @Query("DELETE FROM city_weather WHERE id = :id ")
+    suspend fun deleteFavoriteCityById(id: Int)
+
+    @Query("DELETE FROM daily_weather WHERE city_weather_id = :cityWeatherId")
+    suspend fun deleteDailyCityWeatherById(cityWeatherId: Int)
 }
