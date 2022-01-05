@@ -18,4 +18,10 @@ object ViewVisibilityUtil {
             it.visibility = View.GONE
         }
     }
+
+    fun makeInvisible(vararg views: View) {
+        views.forEach {
+            it.visibility = View.INVISIBLE
+        }
+    }
 }

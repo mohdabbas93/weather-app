@@ -10,6 +10,7 @@ import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
 import com.mohdabbas.weatherapp.util.RecyclerViewUtil
 import com.mohdabbas.weatherapp.util.RecyclerViewUtil.addSpacingDecorationForRecyclerView
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeInvisible
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.activity_city_search.*
 
@@ -50,7 +51,8 @@ class CitySearchActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.loading.observe(this) {
-            makeGone(loadingView, citySearchResultsRecyclerView)
+            makeGone(loadingView)
+            makeInvisible(citySearchResultsRecyclerView)
             if (it) {
                 makeVisible(loadingView)
             }
