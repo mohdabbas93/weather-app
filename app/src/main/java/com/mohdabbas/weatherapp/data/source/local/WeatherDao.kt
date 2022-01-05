@@ -16,18 +16,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWeatherData(cityWeather: CityWeather)
 
-    @Transaction
-    suspend fun addWeatherData(cityWeather: CityWeather, dailyWeather: List<DailyWeather>) {
-        addCityWeatherData(cityWeather)
-        addDailyWeathersData(dailyWeather)
-    }
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCityWeatherData(cityWeather: CityWeather)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addDailyWeathersData(dailyWeather: List<DailyWeather>)
-
     @Query("SELECT * FROM city_weather WHERE id = :cityWeatherId")
     suspend fun getWeatherDataById(cityWeatherId: Int): CityWeatherWithDailyWeathers
 
@@ -39,4 +27,28 @@ interface WeatherDao {
 
     @Delete
     suspend fun deleteFavoriteCity(favoriteCityWeather: FavoriteCity)
+
+    // CRUD (Only tow tables needed, city_weather and daily_weather)
+
+    @Transaction
+    suspend fun addWeatherData(cityWeather: CityWeather, dailyWeather: List<DailyWeather>) {
+        addCityWeatherData(cityWeather)
+        addDailyWeathersData(dailyWeather)
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addDailyWeathersData(dailyWeather: List<DailyWeather>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addCityWeatherData(cityWeather: CityWeather)
+
+    //Read
+    @Transaction
+    @Query("SELECT * FROM city_weather WHERE is_default = 1")
+    suspend fun getDefaultCityWeatherData(): CityWeatherWithDailyWeathers
+    // 2. Get favorite cities
+
+    // Update
+
+    // Delete
 }
