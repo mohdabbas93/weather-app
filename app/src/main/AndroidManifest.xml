@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ui.search.CitySearchActivity" />
         <activity android:name=".ui.details.CityWeatherDetailsActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
@@ -26,6 +27,5 @@
 
         <receiver android:name=".util.NotificationReceiver" />
     </application>
-
 
 </manifest>
