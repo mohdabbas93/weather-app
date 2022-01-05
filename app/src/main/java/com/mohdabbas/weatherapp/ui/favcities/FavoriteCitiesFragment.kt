@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
-import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
@@ -22,7 +21,7 @@ class FavoriteCitiesFragment : Fragment() {
 
         persistenceManager = PersistenceManager(requireContext())
         setupObservers()
-        //viewModel.getFavoriteCities()
+        viewModel.getFavoriteCities()
     }
 
     private fun setupObservers() {
@@ -48,17 +47,7 @@ class FavoriteCitiesFragment : Fragment() {
     private var adapter: FavoriteCitiesAdapter? = null
 
     private fun setupFavoriteCitiesRecyclerView() {
-        adapter = FavoriteCitiesAdapter(
-            listOf(
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-                FavoriteCity(1, 51.50853, -0.12574, 34.0, "Sunny", "02d", 13.0, 34, 1234.0),
-            ),
-            persistenceManager.isCelsius
-        )
+        adapter = FavoriteCitiesAdapter(listOf(), persistenceManager.isCelsius)
         favCitiesRecyclerView.adapter = adapter
     }
 }

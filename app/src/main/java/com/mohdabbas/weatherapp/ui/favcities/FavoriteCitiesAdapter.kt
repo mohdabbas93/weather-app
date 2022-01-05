@@ -1,7 +1,6 @@
 package com.mohdabbas.weatherapp.ui.favcities
 
 import android.content.Context
-import android.content.Intent
 import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
-import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
-import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
+import com.mohdabbas.weatherapp.data.source.local.CityWeather
 import kotlinx.android.synthetic.main.item_fav_city.view.*
 import java.io.IOException
 import java.util.*
@@ -22,7 +18,7 @@ import java.util.*
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val isCelsius: Boolean) :
+class FavoriteCitiesAdapter(private var data: List<CityWeather>, private val isCelsius: Boolean) :
     RecyclerView.Adapter<FavoriteCitiesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,35 +36,35 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        Glide.with(viewHolder.itemView.context)
-            .load("http://openweathermap.org/img/wn/${data[position].weatherConditionIcon}@2x.png")
-            .error(R.drawable.ic_broken_image)
-            .centerCrop()
-            .into(viewHolder.weatherConditionIcon)
-
-        viewHolder.weatherConditionTextView.text = data[position].weatherCondition
-
-        viewHolder.currentTempTextView.text = viewHolder.itemView.context.getString(
-            R.string.current_temp,
-            data[position].currentTemperature.convertTemperature(isCelsius).toInt()
-        )
-
-        viewHolder.cityNameTextView.text = getCityNameAndCountry(
-            viewHolder.itemView.context,
-            data[position].lat,
-            data[position].lng
-        )
-
-        viewHolder.itemView.apply {
-            setOnClickListener {
-                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
-
-                intent.putExtra("lat", data[position].lat)
-                intent.putExtra("lng", data[position].lng)
-
-                context.startActivity(intent)
-            }
-        }
+//        Glide.with(viewHolder.itemView.context)
+//            .load("http://openweathermap.org/img/wn/${data[position].weatherConditionIcon}@2x.png")
+//            .error(R.drawable.ic_broken_image)
+//            .centerCrop()
+//            .into(viewHolder.weatherConditionIcon)
+//
+//        viewHolder.weatherConditionTextView.text = data[position].weatherCondition
+//
+//        viewHolder.currentTempTextView.text = viewHolder.itemView.context.getString(
+//            R.string.current_temp,
+//            data[position].currentTemperature.convertTemperature(isCelsius).toInt()
+//        )
+//
+//        viewHolder.cityNameTextView.text = getCityNameAndCountry(
+//            viewHolder.itemView.context,
+//            data[position].lat,
+//            data[position].lng
+//        )
+//
+//        viewHolder.itemView.apply {
+//            setOnClickListener {
+//                val intent = Intent(context, CityWeatherDetailsActivity::class.java)
+//
+//                intent.putExtra("lat", data[position].lat)
+//                intent.putExtra("lng", data[position].lng)
+//
+//                context.startActivity(intent)
+//            }
+//        }
     }
 
     override fun getItemCount() = data.size
@@ -88,7 +84,7 @@ class FavoriteCitiesAdapter(private var data: List<FavoriteCity>, private val is
         return ""
     }
 
-    fun updateData(newData: List<FavoriteCity>) {
+    fun updateData(newData: List<CityWeather>) {
         data = newData
         notifyDataSetChanged()
     }

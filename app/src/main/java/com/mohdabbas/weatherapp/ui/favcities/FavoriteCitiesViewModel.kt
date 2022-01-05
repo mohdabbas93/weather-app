@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohdabbas.weatherapp.data.source.WeatherRepository
-import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.data.source.local.CityWeather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,8 +17,8 @@ class FavoriteCitiesViewModel(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
-    private val _favoriteCities = MutableLiveData<List<FavoriteCity>>()
-    val favoriteCities: LiveData<List<FavoriteCity>> = _favoriteCities
+    private val _favoriteCities = MutableLiveData<List<CityWeather>>()
+    val favoriteCities: LiveData<List<CityWeather>> = _favoriteCities
 
     fun getFavoriteCities() {
         viewModelScope.launch(Dispatchers.IO) {

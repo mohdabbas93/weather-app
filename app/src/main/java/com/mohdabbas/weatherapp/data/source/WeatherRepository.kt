@@ -1,7 +1,7 @@
 package com.mohdabbas.weatherapp.data.source
 
 import com.mohdabbas.weatherapp.data.Result
-import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.data.source.local.CityWeather
 import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 
@@ -34,7 +34,7 @@ class WeatherRepository(
         localDataSource.addWeatherData(cityWeatherDto)
     }
 
-    override suspend fun getFavoriteCities(): List<FavoriteCity> {
+    override suspend fun getFavoriteCities(): List<CityWeather> {
         return localDataSource.getFavoriteCities()
     }
 

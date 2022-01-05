@@ -2,7 +2,7 @@ package com.mohdabbas.weatherapp.data.source.remote
 
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherDataSource
-import com.mohdabbas.weatherapp.data.source.local.FavoriteCity
+import com.mohdabbas.weatherapp.data.source.local.CityWeather
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.util.ErrorType
 
@@ -29,7 +29,7 @@ class WeatherRemoteDataSource(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFavoriteCities(): List<FavoriteCity> {
+    override suspend fun getFavoriteCities(): List<CityWeather> {
         TODO("Not yet implemented")
     }
 
