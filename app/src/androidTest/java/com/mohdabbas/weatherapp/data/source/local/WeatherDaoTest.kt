@@ -97,4 +97,21 @@ class WeatherDaoTest {
 
         assertTrue(result.contains(favCityWeather))
     }
+
+    @Test
+    fun addAndGetMultipleFavoriteCitiesWeathersData() = runBlocking {
+        val favCityWeather1 = TestUtil.createCityWeather(cityWeatherId = 1, isDefault = false)
+        val favCityWeather2 = TestUtil.createCityWeather(cityWeatherId = 2, isDefault = false)
+        val favCityWeather3 = TestUtil.createCityWeather(cityWeatherId = 3, isDefault = false)
+
+
+        dao.addWeatherData(favCityWeather1.cityWeather, favCityWeather1.dailyWeathers)
+        dao.addWeatherData(favCityWeather2.cityWeather, favCityWeather2.dailyWeathers)
+        dao.addWeatherData(favCityWeather3.cityWeather, favCityWeather3.dailyWeathers)
+
+        val result = dao.getFavoriteCitiesWeathersData()
+        val favCitiesWeathers = listOf(favCityWeather1, favCityWeather2, favCityWeather3)
+
+        assertTrue(result.containsAll(favCitiesWeathers))
+    }
 }

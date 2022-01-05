@@ -9,9 +9,9 @@ import com.mohdabbas.weatherapp.data.source.local.entity.relation.CityWeatherWit
  * On: 1/5/22.
  */
 object TestUtil {
-    fun createCityWeather(isDefault: Boolean) = CityWeatherWithDailyWeathers(
+    fun createCityWeather(cityWeatherId: Int = 1, isDefault: Boolean) = CityWeatherWithDailyWeathers(
         cityWeather = CityWeather(
-            id = 1,
+            id = cityWeatherId,
             lat = 22.0,
             lng = 34.0,
             timezone = "Cairo",
@@ -27,8 +27,8 @@ object TestUtil {
         ),
         dailyWeathers = listOf(
             DailyWeather(
-                id = 1,
-                cityWeatherId = 1,
+                id = (cityWeatherId - 1) * 2 + 1,
+                cityWeatherId = cityWeatherId,
                 currentUTCTime = 12345,
                 24.0,
                 29.0,
@@ -36,8 +36,8 @@ object TestUtil {
                 "02d"
             ),
             DailyWeather(
-                id = 2,
-                cityWeatherId = 1,
+                id = (cityWeatherId - 1) * 2 + 2,
+                cityWeatherId = cityWeatherId,
                 currentUTCTime = 12345,
                 25.0,
                 29.0,
