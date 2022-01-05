@@ -114,4 +114,15 @@ class WeatherDaoTest {
 
         assertTrue(result.containsAll(favCitiesWeathers))
     }
+
+    @Test
+    fun addAndDeleteFavoriteCityWeatherDataById() = runBlocking {
+        val favCityWeather = TestUtil.createCityWeather(cityWeatherId = 1, isDefault = false)
+
+        dao.addWeatherData(favCityWeather.cityWeather, favCityWeather.dailyWeathers)
+        dao.deleteFavoriteCityWeatherDataById(favCityWeather.cityWeather.id)
+        val result = dao.getFavoriteCitiesWeathersData()
+
+        assertTrue(!result.contains(favCityWeather))
+    }
 }
