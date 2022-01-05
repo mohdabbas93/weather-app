@@ -75,6 +75,7 @@ class HomeFragment : Fragment() {
         if (lat != null && lng != null) {
             isDetailsPage = true
             viewModel.getWeatherData(lat, lng)
+            viewModel.isCityFavorite(lat, lng)
         } else {
             isDetailsPage = false
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -113,6 +114,8 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.isCityFavorite.observe(this) { isFavorite = it }
     }
 
     private fun showWeatherData(weatherData: CityWeatherDto) {
