@@ -28,4 +28,6 @@ data class CityWeather(
     val weatherCondition: String,
     @ColumnInfo(name = "weather_condition_icon")
     val weatherConditionIcon: String,
+    @ColumnInfo(name = "is_default")
+    val isDefault: Boolean = false
 )
