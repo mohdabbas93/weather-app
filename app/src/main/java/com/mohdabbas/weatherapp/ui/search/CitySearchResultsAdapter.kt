@@ -10,6 +10,7 @@ import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
 import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.item_city_search.view.*
 
 /**
@@ -48,6 +49,8 @@ class CitySearchResultsAdapter(private var data: List<CitySearchDto>) :
 
         if (data.isNotEmpty() && position == data.size - 1) {
             makeGone(viewHolder.divider)
+        } else {
+            makeVisible(viewHolder.divider)
         }
     }
 
