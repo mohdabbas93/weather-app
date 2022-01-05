@@ -6,6 +6,8 @@ import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.activity_city_search.*
 
 class CitySearchActivity : AppCompatActivity() {
@@ -39,9 +41,19 @@ class CitySearchActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
+        viewModel.loading.observe(this) {
+            makeGone(loadingView, citySearchResultsRecyclerView)
+            if (it) {
+                makeVisible(loadingView)
+            }
+        }
+
         viewModel.searchResults.observe(this) {
             when (it) {
-                is Result.Success -> showCitySearchResults(it.data)
+                is Result.Success -> {
+                    makeVisible(citySearchResultsRecyclerView)
+                    showCitySearchResults(it.data)
+                }
             }
         }
     }

@@ -20,9 +20,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        app:layout_constraintBottom_toTopOf="@+id/citySearchResultsRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/loadingView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/citySearchInputEditText" />
+
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/layout_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/citySearchResultsRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/citySearchResultsRecyclerView"
@@ -31,7 +42,7 @@
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton"
+        app:layout_constraintTop_toBottomOf="@+id/loadingView"
         tools:itemCount="10"
         tools:listitem="@layout/item_city_search" />
 
