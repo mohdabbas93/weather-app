@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
 import com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import kotlinx.android.synthetic.main.item_city_search.view.*
 
 /**
@@ -21,6 +22,7 @@ class CitySearchResultsAdapter(private var data: List<CitySearchDto>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cityNameTextView: TextView = view.cityNameTextView
         val countryNameTextView: TextView = view.countryNameTextView
+        val divider: View = view.divider
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -42,6 +44,10 @@ class CitySearchResultsAdapter(private var data: List<CitySearchDto>) :
 
                 context.startActivity(intent)
             }
+        }
+
+        if (data.isNotEmpty() && position == data.size - 1) {
+            makeGone(viewHolder.divider)
         }
     }
 
