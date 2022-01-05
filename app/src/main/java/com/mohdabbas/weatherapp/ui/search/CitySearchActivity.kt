@@ -1,6 +1,7 @@
 package com.mohdabbas.weatherapp.ui.search
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
@@ -53,6 +54,10 @@ class CitySearchActivity : AppCompatActivity() {
                 is Result.Success -> {
                     makeVisible(citySearchResultsRecyclerView)
                     showCitySearchResults(it.data)
+                }
+                is Result.Error -> {
+                    Toast.makeText(this, getString(R.string.failed_to_load), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
