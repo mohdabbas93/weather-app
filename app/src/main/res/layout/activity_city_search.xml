@@ -20,14 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        app:layout_constraintBottom_toTopOf="@+id/citySearchResult"
+        app:layout_constraintBottom_toTopOf="@+id/citySearchResultsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/citySearchInputEditText" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/citySearchResult"
+        android:id="@+id/citySearchResultsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchButton"
