@@ -48,6 +48,7 @@ class FavoriteCitiesAdapter(private var data: List<CityWeather>) :
             setOnClickListener {
                 val intent = Intent(context, CityWeatherDetailsActivity::class.java)
 
+                intent.putExtra("id", data[position].id)
                 intent.putExtra("lat", data[position].lat)
                 intent.putExtra("lng", data[position].lng)
 
