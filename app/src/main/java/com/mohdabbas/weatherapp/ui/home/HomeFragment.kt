@@ -399,9 +399,9 @@ class HomeFragment : Fragment() {
         when (item.itemId) {
             R.id.search -> navigateCitySearchActivity()
             R.id.favorite -> {
-//                if (!isFavorite) {
-//                    viewModel.addFavoriteCity()
-//                }
+                if (!isFavorite) {
+                    viewModel.addFavoriteCity()
+                }
                 isFavorite = !isFavorite
                 updateFavoriteIcon()
             }
