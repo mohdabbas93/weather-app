@@ -45,7 +45,7 @@ class HomeViewModel(
             if (hasLoading) {
                 _loading.postValue(true)
             }
-            val response = weatherRepository.getWeatherData(lat, lng)
+            val response = weatherRepository.getRemoteWeatherDataAndStoreItInDb(lat, lng, true)
             _loading.postValue(false)
             _weatherData.postValue(response)
         }

@@ -14,7 +14,12 @@ import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
  */
 interface WeatherDataSource {
     suspend fun getCurrentLocationWeatherData(): Result<CityWeatherDto>
-    suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto>
+    suspend fun getRemoteWeatherDataAndStoreItInDb(
+        lat: Double,
+        lng: Double,
+        isDefault: Boolean
+    ): Result<CityWeatherDto>
+
     suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean)
     suspend fun getFavoriteCities(): List<CityWeather>
     suspend fun isCityFavorite(lat: Double, lng: Double): Boolean

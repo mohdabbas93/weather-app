@@ -22,7 +22,11 @@ class WeatherLocalDataSource(
         }
     }
 
-    override suspend fun getWeatherData(lat: Double, lng: Double): Result<CityWeatherDto> {
+    override suspend fun getRemoteWeatherDataAndStoreItInDb(
+        lat: Double,
+        lng: Double,
+        isDefault: Boolean
+    ): Result<CityWeatherDto> {
         TODO("Not yet implemented")
     }
 
