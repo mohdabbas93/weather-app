@@ -151,10 +151,17 @@ class HomeFragment : Fragment() {
                     showWeatherData(it.data)
                 }
                 is Result.Error -> {
-                    if (it.errorType == ErrorType.NoSavedData) {
-                        makeVisible(noSavedDataView)
-                    } else {
-                        makeVisible(errorView)
+                    when {
+                        it.errorType == ErrorType.NoSavedData -> {
+                            makeVisible(noSavedDataView)
+                        }
+                        it.errorType == ErrorType.RemoteError &&
+                                viewModel.localWeatherData.value is Result.Error -> {
+                            makeVisible(errorView)
+                        }
+                        else -> {
+                            makeVisible(mainView)
+                        }
                     }
                 }
             }
