@@ -34,7 +34,8 @@ class WeatherLocalDataSource(
     override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean) {
         weatherDao.addWeatherData(
             cityWeatherDto.toCityWeather(isDefault),
-            cityWeatherDto.dailyWeather.toDailyWeather()
+            cityWeatherDto.dailyWeather.toDailyWeather(),
+            isDefault
         )
     }
 

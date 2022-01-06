@@ -82,7 +82,11 @@ class WeatherDaoTest {
     fun addAndGetDefaultCityWeatherData() = runBlocking {
         val defaultCityWeather = TestUtil.createCityWeather(isDefault = true)
 
-        dao.addWeatherData(defaultCityWeather.cityWeather, defaultCityWeather.dailyWeathers)
+        dao.addWeatherData(
+            defaultCityWeather.cityWeather,
+            defaultCityWeather.dailyWeathers,
+            isDefault = false
+        )
         val result = dao.getDefaultCityWeatherData()
 
         assertEquals(defaultCityWeather, result)
@@ -92,7 +96,11 @@ class WeatherDaoTest {
     fun addAndGetFavoriteCityWeatherData() = runBlocking {
         val favCityWeather = TestUtil.createCityWeather(isDefault = false)
 
-        dao.addWeatherData(favCityWeather.cityWeather, favCityWeather.dailyWeathers)
+        dao.addWeatherData(
+            favCityWeather.cityWeather,
+            favCityWeather.dailyWeathers,
+            isDefault = false
+        )
         val result = dao.getFavoriteCitiesWeathersData()
 
         assertTrue(result.contains(favCityWeather))
@@ -105,9 +113,21 @@ class WeatherDaoTest {
         val favCityWeather3 = TestUtil.createCityWeather(cityWeatherId = 3, isDefault = false)
 
 
-        dao.addWeatherData(favCityWeather1.cityWeather, favCityWeather1.dailyWeathers)
-        dao.addWeatherData(favCityWeather2.cityWeather, favCityWeather2.dailyWeathers)
-        dao.addWeatherData(favCityWeather3.cityWeather, favCityWeather3.dailyWeathers)
+        dao.addWeatherData(
+            favCityWeather1.cityWeather,
+            favCityWeather1.dailyWeathers,
+            isDefault = false
+        )
+        dao.addWeatherData(
+            favCityWeather2.cityWeather,
+            favCityWeather2.dailyWeathers,
+            isDefault = false
+        )
+        dao.addWeatherData(
+            favCityWeather3.cityWeather,
+            favCityWeather3.dailyWeathers,
+            isDefault = false
+        )
 
         val result = dao.getFavoriteCitiesWeathersData()
         val favCitiesWeathers = listOf(favCityWeather1, favCityWeather2, favCityWeather3)
@@ -119,8 +139,12 @@ class WeatherDaoTest {
     fun addAndDeleteFavoriteCityWeatherDataById() = runBlocking {
         val favCityWeather = TestUtil.createCityWeather(cityWeatherId = 1, isDefault = false)
 
-        dao.addWeatherData(favCityWeather.cityWeather, favCityWeather.dailyWeathers)
-        dao.deleteFavoriteCityWeatherDataById(favCityWeather.cityWeather.id)
+        dao.addWeatherData(
+            favCityWeather.cityWeather,
+            favCityWeather.dailyWeathers,
+            isDefault = false
+        )
+        dao.deleteFavoriteCityWeatherDataById(favCityWeather.cityWeather.id!!)
         val result = dao.getFavoriteCitiesWeathersData()
 
         assertTrue(!result.contains(favCityWeather))

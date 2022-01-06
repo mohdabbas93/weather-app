@@ -38,7 +38,11 @@ interface WeatherDao {
     // CRUD (Only tow tables needed, city_weather and daily_weather)
 
     @Transaction
-    suspend fun addWeatherData(cityWeather: CityWeather, dailyWeather: List<DailyWeather>) {
+    suspend fun addWeatherData(
+        cityWeather: CityWeather,
+        dailyWeather: List<DailyWeather>,
+        isDefault: Boolean
+    ) {
         val id = getWeatherCityId()?.toInt()
         val updatedCityWeather = if (id == null) cityWeather else cityWeather.copy(id = id)
         val cityWeatherId = addCityWeatherData(updatedCityWeather).toInt()
