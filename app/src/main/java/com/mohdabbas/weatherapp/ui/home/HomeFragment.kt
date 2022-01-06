@@ -58,6 +58,10 @@ class HomeFragment : Fragment() {
     private var isDetailsPage = false
     private var isFavorite = false
 
+    enum class Path { Main, Search, Favorite }
+
+    private var path = Path.Main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,19 +73,47 @@ class HomeFragment : Fragment() {
         // First get data if not exist as to get location and not refresh data
         // if there is data then refresh
 
+        val id = arguments?.getInt("id")
         val lat = arguments?.getDouble("lat", 0.0)
         val lng = arguments?.getDouble("lng", 0.0)
 
-        if (lat != null && lng != null) {
-            isDetailsPage = true
-            viewModel.getWeatherData(lat, lng)
-            viewModel.isCityFavorite(lat, lng)
-        } else {
-            isDetailsPage = false
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            createLocationRequest()
-            viewModel.getCurrentLocationWeatherData()
+        when {
+            id != 0 && lat != null && lng != null -> Toast.makeText(
+                context,
+                "Favorite",
+                Toast.LENGTH_SHORT
+            ).show()
+            id == 0 && lat != null && lng != null -> Toast.makeText(
+                context,
+                "Search",
+                Toast.LENGTH_SHORT
+            ).show()
+            else -> {
+                path = Path.Main
+                mainPath()
+            }
         }
+
+
+//        if (lat != null && lng != null) {
+//            viewModel.favoriteCityLat = lat
+//            viewModel.favoriteCityLng = lng
+//            isDetailsPage = true
+//            viewModel.getFavoriteWeatherData()
+//            //   viewModel.getWeatherData(lat, lng)
+//            //  viewModel.isCityFavorite(lat, lng)
+//        } else {
+//            isDetailsPage = false
+//            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+//            createLocationRequest()
+//            viewModel.getCurrentLocationWeatherData()
+//        }
+    }
+
+    private fun mainPath() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        createLocationRequest()
+        viewModel.getCurrentLocationWeatherData()
     }
 
     private fun createLocationRequest() {
