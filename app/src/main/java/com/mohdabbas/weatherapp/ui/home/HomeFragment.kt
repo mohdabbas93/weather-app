@@ -66,8 +66,6 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setupObservers()
-        viewModel.getCurrentLocationWeatherData()
-
         persistenceManager = PersistenceManager((requireContext()))
 
         // First get data if not exist as to get location and not refresh data
