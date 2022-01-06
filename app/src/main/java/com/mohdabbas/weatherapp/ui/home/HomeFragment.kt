@@ -114,9 +114,6 @@ class HomeFragment : Fragment() {
 
     private fun favoritePath(cityWeatherId: Int) {
         viewModel.getFavoriteCityWeatherData(cityWeatherId)
-        // Build the favorite path
-        // Here we get the details of the favorite city by id
-        // Then request the data from server
     }
 
     private fun createLocationRequest() {
@@ -175,6 +172,13 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     makeVisible(mainView)
                     showWeatherData(it.data)
+
+                    viewModel.getWeatherData(
+                        it.data.lat,
+                        it.data.lng,
+                        hasLoading = false,
+                        isDefault = false
+                    )
                 }
                 is Result.Error -> {
                     if (it.errorType == ErrorType.NoSavedData) {

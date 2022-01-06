@@ -44,14 +44,15 @@ class HomeViewModel(
         lat: Double,
         lng: Double,
         hasLoading: Boolean = true,
-        storeInDb: Boolean = true
+        storeInDb: Boolean = true,
+        isDefault: Boolean = true,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (hasLoading) {
                 _loading.postValue(true)
             }
             val response =
-                weatherRepository.getRemoteWeatherDataAndStoreItInDb(lat, lng, true, storeInDb)
+                weatherRepository.getRemoteWeatherDataAndStoreItInDb(lat, lng, isDefault, storeInDb)
             _loading.postValue(false)
             _weatherData.postValue(response)
         }
