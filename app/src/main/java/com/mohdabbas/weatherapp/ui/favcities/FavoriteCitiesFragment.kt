@@ -21,6 +21,11 @@ class FavoriteCitiesFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setupObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         viewModel.getFavoriteCities()
     }
 
