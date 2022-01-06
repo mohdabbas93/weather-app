@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
             isDetailsPage = false
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             createLocationRequest()
-            // TODO: Get location to update last location
+            viewModel.getCurrentLocationWeatherData()
         }
     }
 
