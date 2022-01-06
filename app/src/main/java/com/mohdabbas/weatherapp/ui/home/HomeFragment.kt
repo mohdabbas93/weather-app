@@ -23,9 +23,9 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
-import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import com.mohdabbas.weatherapp.ui.search.CitySearchActivity
 import com.mohdabbas.weatherapp.util.ErrorType
 import com.mohdabbas.weatherapp.util.RecyclerViewUtil
@@ -46,9 +46,6 @@ class HomeFragment : Fragment() {
     // TODO: Very stupid way to instantiate a view model, for it works for now
     private val viewModel = HomeViewModel(WeatherApplication.WeatherRepository)
 
-    // TODO: Refactor this later
-    private lateinit var persistenceManager: PersistenceManager
-
     private val resolutionForResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
             if (activityResult.resultCode == Activity.RESULT_OK)
@@ -63,7 +60,6 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setupObservers()
-        persistenceManager = PersistenceManager((requireContext()))
 
         val id = arguments?.getInt("id")
         val lat = arguments?.getDouble("lat", 0.0)
