@@ -26,4 +26,5 @@
     <string name="search">Search</string>
     <string name="failed_to_load">Failed to load</string>
     <string name="favorite">Favorite</string>
+    <string name="no_city_name">No city name founded</string>
 </resources>

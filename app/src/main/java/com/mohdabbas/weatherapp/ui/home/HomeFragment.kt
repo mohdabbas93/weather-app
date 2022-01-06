@@ -180,12 +180,13 @@ class HomeFragment : Fragment() {
     private fun getLocationName(lat: Double, lng: Double): String {
         try {
             val addresses = Geocoder(context, Locale.getDefault()).getFromLocation(lat, lng, 1)
-            return addresses[0].adminArea
+            return addresses[0].locality ?: addresses[0].subLocality ?: addresses[0].adminArea
+            ?: addresses[0].subAdminArea ?: getString(R.string.no_city_name)
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
-        return ""
+        return getString(R.string.no_city_name)
     }
 
     @SuppressLint("MissingPermission")
