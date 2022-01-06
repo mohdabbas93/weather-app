@@ -39,11 +39,9 @@ class DailyWeatherAdapter(private var data: List<DailyWeatherDto>, private val i
         return ViewHolder(view)
     }
 
-
-    private val sdf = SimpleDateFormat("EEEE")
-
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.dayTextView.text = sdf.format(Date(data[position].currentUTCTime * 1000))
+        viewHolder.dayTextView.text =
+            SimpleDateFormat("EE").format(Date(data[position].currentUTCTime * 1000))
 
         viewHolder.weatherConditionTextView.text =
             data[position].weather.firstOrNull()?.weatherCondition ?: ""
