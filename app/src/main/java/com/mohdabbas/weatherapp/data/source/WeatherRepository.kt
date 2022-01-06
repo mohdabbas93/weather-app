@@ -22,6 +22,10 @@ class WeatherRepository(
         return localDataSource.getCurrentLocationWeatherData()
     }
 
+    override suspend fun deleteCityWeather(id: Int) {
+        localDataSource.deleteCityWeather(id)
+    }
+
     override suspend fun getCityWeather(id: Int): Result<CityWeatherDto> {
         return localDataSource.getCityWeather(id)
     }

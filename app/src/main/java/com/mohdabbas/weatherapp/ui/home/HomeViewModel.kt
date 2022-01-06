@@ -79,4 +79,12 @@ class HomeViewModel(
             }
         }
     }
+
+    var cityWeatherId: Int = 0
+
+    fun deleteFavoriteCity() {
+        viewModelScope.launch(Dispatchers.IO) {
+            weatherRepository.deleteCityWeather(cityWeatherId)
+        }
+    }
 }

@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
         when {
             id != 0 && id != null && lat != null && lng != null -> {
                 path = Path.Favorite
+                viewModel.cityWeatherId = id
                 favoritePath(id)
             }
             id == 0 && lat != null && lng != null -> {
@@ -424,7 +425,7 @@ class HomeFragment : Fragment() {
                     viewModel.addFavoriteCity()
                 } else if (path == Path.Favorite) {
                     updateFavoriteIcon(false)
-                    // Delete favorite city
+                    viewModel.deleteFavoriteCity()
                 }
             }
         }

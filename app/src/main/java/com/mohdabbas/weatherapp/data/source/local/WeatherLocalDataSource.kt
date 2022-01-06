@@ -22,6 +22,10 @@ class WeatherLocalDataSource(
         }
     }
 
+    override suspend fun deleteCityWeather(id: Int) {
+        weatherDao.deleteFavoriteCityWeatherDataById(id)
+    }
+
     override suspend fun getCityWeather(id: Int): Result<CityWeatherDto> {
         return try {
             Result.Success(weatherDao.getWeatherDataById(id).toCityWeatherDto())

@@ -25,4 +25,5 @@ interface WeatherDataSource {
     suspend fun getFavoriteCities(): List<CityWeather>
     suspend fun isCityFavorite(lat: Double, lng: Double): Boolean
     suspend fun getCityWeather(id: Int): Result<CityWeatherDto>
+    suspend fun deleteCityWeather(id: Int)
 }
