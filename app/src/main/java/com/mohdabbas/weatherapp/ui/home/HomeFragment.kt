@@ -72,11 +72,10 @@ class HomeFragment : Fragment() {
         val lng = arguments?.getDouble("lng", 0.0)
 
         when {
-            id != 0 && lat != null && lng != null -> Toast.makeText(
-                context,
-                "Favorite",
-                Toast.LENGTH_SHORT
-            ).show()
+            id != 0 && id != null && lat != null && lng != null -> {
+                path = Path.Favorite
+                favoritePath(id)
+            }
             id == 0 && lat != null && lng != null -> {
                 path = Path.Search
                 searchPath(lat, lng)
@@ -111,6 +110,13 @@ class HomeFragment : Fragment() {
 
     private fun searchPath(lat: Double, lng: Double) {
         viewModel.getWeatherData(lat, lng, storeInDb = false)
+    }
+
+    private fun favoritePath(cityWeatherId: Int) {
+        viewModel.getFavoriteCityWeatherData(cityWeatherId)
+        // Build the favorite path
+        // Here we get the details of the favorite city by id
+        // Then request the data from server
     }
 
     private fun createLocationRequest() {
@@ -159,6 +165,20 @@ class HomeFragment : Fragment() {
                         else -> {
                             makeVisible(mainView)
                         }
+                    }
+                }
+            }
+        }
+
+        viewModel.localFavoriteCityWeatherData.observe(this) {
+            when (it) {
+                is Result.Success -> {
+                    makeVisible(mainView)
+                    showWeatherData(it.data)
+                }
+                is Result.Error -> {
+                    if (it.errorType == ErrorType.NoSavedData) {
+                        makeVisible(noSavedDataView)
                     }
                 }
             }

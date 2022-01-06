@@ -17,6 +17,10 @@ class WeatherRemoteDataSource(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getCityWeather(id: Int): Result<CityWeatherDto> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getRemoteWeatherDataAndStoreItInDb(
         lat: Double,
         lng: Double,

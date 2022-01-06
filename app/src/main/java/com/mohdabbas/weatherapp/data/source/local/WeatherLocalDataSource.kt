@@ -22,6 +22,14 @@ class WeatherLocalDataSource(
         }
     }
 
+    override suspend fun getCityWeather(id: Int): Result<CityWeatherDto> {
+        return try {
+            Result.Success(weatherDao.getWeatherDataById(id).toCityWeatherDto())
+        } catch (e: Exception) {
+            Result.Error(e, ErrorType.NoSavedData)
+        }
+    }
+
     override suspend fun getRemoteWeatherDataAndStoreItInDb(
         lat: Double,
         lng: Double,

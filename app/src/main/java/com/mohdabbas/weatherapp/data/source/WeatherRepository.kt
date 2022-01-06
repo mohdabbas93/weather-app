@@ -22,6 +22,10 @@ class WeatherRepository(
         return localDataSource.getCurrentLocationWeatherData()
     }
 
+    override suspend fun getCityWeather(id: Int): Result<CityWeatherDto> {
+        return localDataSource.getCityWeather(id)
+    }
+
     override suspend fun getRemoteWeatherDataAndStoreItInDb(
         lat: Double,
         lng: Double,
