@@ -55,8 +55,6 @@ class HomeFragment : Fragment() {
                 getLastLocation(requireContext())
         }
 
-    private var isFavorite = false
-
     enum class Path { Main, Search, Favorite }
 
     private var path = Path.Main
@@ -412,7 +410,7 @@ class HomeFragment : Fragment() {
         menu.findItem(R.id.search).isVisible = path == Path.Main
         menu.findItem(R.id.favorite).apply {
             isVisible = path != Path.Main
-            updateFavoriteIcon()
+            updateFavoriteIcon(path == Path.Favorite)
         }
         super.onPrepareOptionsMenu(menu)
     }
@@ -421,18 +419,20 @@ class HomeFragment : Fragment() {
         when (item.itemId) {
             R.id.search -> navigateCitySearchActivity()
             R.id.favorite -> {
-                if (!isFavorite) {
+                if (path == Path.Search) {
+                    updateFavoriteIcon(true)
                     viewModel.addFavoriteCity()
+                } else if (path == Path.Favorite) {
+                    updateFavoriteIcon(false)
+                    // Delete favorite city
                 }
-                isFavorite = !isFavorite
-                updateFavoriteIcon()
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun updateFavoriteIcon() {
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
         optionItemsMenu?.findItem(R.id.favorite)?.apply {
             val iconRes =
                 if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_outlined
