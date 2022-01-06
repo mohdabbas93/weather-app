@@ -171,7 +171,7 @@ class HomeFragment : Fragment() {
 
         locationNameTextView.text = getLocationName(weatherData.lat, weatherData.lng)
         dateAndTimeTextView.text =
-            SimpleDateFormat("EE d MMMM HH:mm a").format(weatherData.currentWeather.currentUTCTime * 1000)
+            SimpleDateFormat("EE d MMMM").format(Date())
         currentTempTextView.text =
             getString(
                 R.string.current_temp,
