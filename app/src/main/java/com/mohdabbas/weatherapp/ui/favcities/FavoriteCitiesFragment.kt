@@ -24,14 +24,18 @@ class FavoriteCitiesFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.loading.observe(this) {
-            makeGone(loadingView, favCitiesRecyclerView)
+            makeGone(loadingView, emptyView, favCitiesRecyclerView)
             if (it) {
                 makeVisible(loadingView)
             }
         }
         viewModel.favoriteCities.observe(this) {
-            makeVisible(favCitiesRecyclerView)
-            adapter?.updateData(it)
+            if (it.isEmpty()) {
+                makeVisible(emptyView)
+            } else {
+                makeVisible(favCitiesRecyclerView)
+                adapter?.updateData(it)
+            }
         }
     }
 
