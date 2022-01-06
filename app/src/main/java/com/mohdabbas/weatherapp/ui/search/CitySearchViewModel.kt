@@ -8,6 +8,7 @@ import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.CitySearchRepository
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
@@ -23,8 +24,11 @@ class CitySearchViewModel(
     private val _searchResults = MutableLiveData<Result<List<CitySearchDto>>>()
     val searchResults: LiveData<Result<List<CitySearchDto>>> = _searchResults
 
+    private var job: Job? = null
+
     fun searchCity(searchTerm: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        job?.cancel()
+        job = viewModelScope.launch(Dispatchers.IO) {
             _loading.postValue(true)
             val response = citySearchRepository.searchCity(searchTerm)
             _loading.postValue(false)
