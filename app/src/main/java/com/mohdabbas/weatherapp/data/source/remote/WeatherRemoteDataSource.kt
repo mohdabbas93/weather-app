@@ -38,7 +38,7 @@ class WeatherRemoteDataSource(
         }
     }
 
-    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean) {
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean): Int? {
         TODO("Not yet implemented")
     }
 

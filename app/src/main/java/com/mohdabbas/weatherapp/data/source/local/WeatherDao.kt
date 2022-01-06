@@ -41,7 +41,7 @@ interface WeatherDao {
         cityWeather: CityWeather,
         dailyWeather: List<DailyWeather>,
         isDefault: Boolean
-    ) {
+    ): Int? {
         val id = getCityWeatherId(cityWeather.lat.toInt(), cityWeather.lng.toInt())?.toInt()
         val updatedCityWeather = if (id == null) cityWeather else cityWeather.copy(id = id)
         val cityWeatherId = addCityWeatherData(updatedCityWeather).toInt()
@@ -49,6 +49,8 @@ interface WeatherDao {
         val updatedDailyWeather =
             dailyWeather.map { it.copy(cityWeatherId = cityWeatherId) }
         addDailyWeathersData(updatedDailyWeather)
+
+        return cityWeatherId
     }
 
     @Query("SELECT id FROM city_weather WHERE  Cast(lat AS int) = :lat and Cast(lng AS int) = :lng")

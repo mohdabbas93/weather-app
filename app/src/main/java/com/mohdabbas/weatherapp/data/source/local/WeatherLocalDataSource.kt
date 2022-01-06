@@ -43,8 +43,8 @@ class WeatherLocalDataSource(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean) {
-        weatherDao.addWeatherData(
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean): Int? {
+        return weatherDao.addWeatherData(
             cityWeatherDto.toCityWeather(isDefault),
             cityWeatherDto.dailyWeather.toDailyWeather(),
             isDefault

@@ -21,7 +21,7 @@ interface WeatherDataSource {
         storeInDb: Boolean
     ): Result<CityWeatherDto>
 
-    suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean)
+    suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean): Int?
     suspend fun getFavoriteCities(): List<CityWeather>
     suspend fun isCityFavorite(lat: Double, lng: Double): Boolean
     suspend fun getCityWeather(id: Int): Result<CityWeatherDto>

@@ -45,8 +45,8 @@ class WeatherRepository(
         return remoteResult
     }
 
-    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean) {
-        localDataSource.addWeatherData(cityWeatherDto, isDefault)
+    override suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean): Int? {
+        return localDataSource.addWeatherData(cityWeatherDto, isDefault)
     }
 
     override suspend fun getFavoriteCities(): List<CityWeather> {

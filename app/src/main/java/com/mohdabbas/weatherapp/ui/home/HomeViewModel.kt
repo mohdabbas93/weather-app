@@ -73,9 +73,10 @@ class HomeViewModel(
 
     fun addFavoriteCity() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = weatherData.value
-            if (result is Result.Success) {
-                weatherRepository.addWeatherData(result.data, isDefault = false)
+            val data = weatherData.value
+            if (data is Result.Success) {
+                val result = weatherRepository.addWeatherData(data.data, isDefault = false)
+                if (result != null) cityWeatherId = result
             }
         }
     }
