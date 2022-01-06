@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
+import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
 import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
 class FavoriteCitiesFragment : Fragment() {
@@ -21,7 +23,14 @@ class FavoriteCitiesFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        viewModel.loading.observe(this) {
+            makeGone(loadingView, favCitiesRecyclerView)
+            if (it) {
+                makeVisible(loadingView)
+            }
+        }
         viewModel.favoriteCities.observe(this) {
+            makeVisible(favCitiesRecyclerView)
             adapter?.updateData(it)
         }
     }

@@ -17,12 +17,17 @@ class FavoriteCitiesViewModel(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     private val _favoriteCities = MutableLiveData<List<CityWeather>>()
     val favoriteCities: LiveData<List<CityWeather>> = _favoriteCities
 
     fun getFavoriteCities() {
         viewModelScope.launch(Dispatchers.IO) {
+            _loading.postValue(true)
             val response = weatherRepository.getFavoriteCities()
+            _loading.postValue(false)
             _favoriteCities.postValue(response)
         }
     }
