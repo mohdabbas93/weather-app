@@ -30,4 +30,5 @@
     <string name="no_country_name">No country name found</string>
     <string name="you_don_t_have_any_favorite_city">You don\'t have any favorite city</string>
     <string name="add_city">Add city</string>
+    <string name="error_loading_data">Error loading data</string>
 </resources>
