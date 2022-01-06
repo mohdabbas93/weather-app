@@ -65,12 +65,15 @@ class FavoriteCitiesAdapter(private var data: List<CityWeather>) :
     ): Pair<String, String> {
         try {
             val addresses = Geocoder(context, Locale.getDefault()).getFromLocation(lat, lng, 1)
-            return addresses[0].adminArea to addresses[0].countryName
+            val cityName =
+                addresses[0].locality ?: addresses[0].subLocality ?: addresses[0].adminArea
+                ?: addresses[0].subAdminArea ?: context.getString(R.string.no_city_name)
+            return cityName to addresses[0].countryName
         } catch (e: IOException) {
             e.printStackTrace()
         }
 
-        return "" to ""
+        return context.getString(R.string.no_city_name) to context.getString(R.string.no_country_name)
     }
 
     fun updateData(newData: List<CityWeather>) {
