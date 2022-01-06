@@ -39,15 +39,17 @@ interface WeatherDao {
 
     @Transaction
     suspend fun addWeatherData(cityWeather: CityWeather, dailyWeather: List<DailyWeather>) {
-        addCityWeatherData(cityWeather)
-        addDailyWeathersData(dailyWeather)
+        val cityWeatherId = addCityWeatherData(cityWeather)
+        val updatedDailyWeather =
+            dailyWeather.map { it.copy(cityWeatherId = cityWeatherId.toInt()) }
+        addDailyWeathersData(updatedDailyWeather)
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDailyWeathersData(dailyWeather: List<DailyWeather>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCityWeatherData(cityWeather: CityWeather)
+    suspend fun addCityWeatherData(cityWeather: CityWeather): Long
 
     @Transaction
     @Query("SELECT * FROM city_weather WHERE is_default = 1")
