@@ -10,6 +10,7 @@ import com.mohdabbas.weatherapp.data.source.remote.WeatherApi
 import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchApi
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchRemoteDataSource
+import com.mohdabbas.weatherapp.persistence.PersistenceManager
 
 /**
  * Created by Mohammad Abbas
@@ -18,12 +19,15 @@ import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchRemoteDa
 class WeatherApplication : Application() {
 
     companion object {
+        lateinit var persistenceManager: PersistenceManager
         lateinit var WeatherRepository: WeatherRepository
         lateinit var citySearchRepository: CitySearchRepository
     }
 
     override fun onCreate() {
         super.onCreate()
+
+        persistenceManager = PersistenceManager(applicationContext)
 
         val weatherRemoteDataSource = WeatherRemoteDataSource(WeatherApi.create())
         val database = Room.databaseBuilder(this, WeatherDatabase::class.java, "weather-db").build()
