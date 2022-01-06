@@ -26,7 +26,7 @@
 
     <include
         android:id="@+id/loadingView"
-        layout="@layout/layout_error_view"
+        layout="@layout/layout_loading_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
