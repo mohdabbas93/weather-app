@@ -84,21 +84,6 @@ class HomeFragment : Fragment() {
                 mainPath()
             }
         }
-
-
-//        if (lat != null && lng != null) {
-//            viewModel.favoriteCityLat = lat
-//            viewModel.favoriteCityLng = lng
-//            isDetailsPage = true
-//            viewModel.getFavoriteWeatherData()
-//            //   viewModel.getWeatherData(lat, lng)
-//            //  viewModel.isCityFavorite(lat, lng)
-//        } else {
-//            isDetailsPage = false
-//            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-//            createLocationRequest()
-//            viewModel.getCurrentLocationWeatherData()
-//        }
     }
 
     private fun mainPath() {
