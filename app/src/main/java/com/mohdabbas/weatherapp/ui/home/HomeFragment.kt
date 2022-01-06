@@ -187,8 +187,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.isCityFavorite.observe(this) { isFavorite = it }
     }
 
     private fun showWeatherData(weatherData: CityWeatherDto) {

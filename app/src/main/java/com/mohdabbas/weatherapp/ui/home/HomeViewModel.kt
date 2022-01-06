@@ -71,16 +71,6 @@ class HomeViewModel(
         }
     }
 
-    private val _isCityFavorite = MutableLiveData<Boolean>()
-    val isCityFavorite: LiveData<Boolean> = _isCityFavorite
-
-    fun isCityFavorite(lat: Double, lng: Double) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = weatherRepository.isCityFavorite(lat, lng)
-            _isCityFavorite.postValue(response)
-        }
-    }
-
     fun addFavoriteCity() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = weatherData.value
