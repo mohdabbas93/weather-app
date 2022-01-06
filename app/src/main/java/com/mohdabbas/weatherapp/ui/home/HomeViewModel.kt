@@ -40,12 +40,18 @@ class HomeViewModel(
     private val _weatherData = MutableLiveData<Result<CityWeatherDto>>()
     val weatherData: LiveData<Result<CityWeatherDto>> = _weatherData
 
-    fun getWeatherData(lat: Double, lng: Double, hasLoading: Boolean = true) {
+    fun getWeatherData(
+        lat: Double,
+        lng: Double,
+        hasLoading: Boolean = true,
+        storeInDb: Boolean = true
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (hasLoading) {
                 _loading.postValue(true)
             }
-            val response = weatherRepository.getRemoteWeatherDataAndStoreItInDb(lat, lng, true)
+            val response =
+                weatherRepository.getRemoteWeatherDataAndStoreItInDb(lat, lng, true, storeInDb)
             _loading.postValue(false)
             _weatherData.postValue(response)
         }

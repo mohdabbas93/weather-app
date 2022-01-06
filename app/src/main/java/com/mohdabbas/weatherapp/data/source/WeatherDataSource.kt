@@ -17,7 +17,8 @@ interface WeatherDataSource {
     suspend fun getRemoteWeatherDataAndStoreItInDb(
         lat: Double,
         lng: Double,
-        isDefault: Boolean
+        isDefault: Boolean,
+        storeInDb: Boolean
     ): Result<CityWeatherDto>
 
     suspend fun addWeatherData(cityWeatherDto: CityWeatherDto, isDefault: Boolean)

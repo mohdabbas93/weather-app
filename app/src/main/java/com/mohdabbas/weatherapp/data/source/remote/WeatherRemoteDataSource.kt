@@ -17,7 +17,12 @@ class WeatherRemoteDataSource(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRemoteWeatherDataAndStoreItInDb(lat: Double, lng: Double, isDefault: Boolean): Result<CityWeatherDto> {
+    override suspend fun getRemoteWeatherDataAndStoreItInDb(
+        lat: Double,
+        lng: Double,
+        isDefault: Boolean,
+        storeInDb: Boolean
+    ): Result<CityWeatherDto> {
         return try {
             Result.Success(weatherApi.getCityWeatherData(lat, lng))
         } catch (e: Exception) {
