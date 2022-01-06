@@ -14,11 +14,13 @@ class CityWeatherDetailsActivity : AppCompatActivity() {
     }
 
     private fun openHomeFragment() {
+        val id = intent.getIntExtra("id", 0)
         val lat = intent.getDoubleExtra("lat", 0.0)
         val lng = intent.getDoubleExtra("lng", 0.0)
 
         val homeFragment = HomeFragment().apply {
             arguments = Bundle().apply {
+                putInt("id", id)
                 putDouble("lat", lat)
                 putDouble("lng", lng)
             }
