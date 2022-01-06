@@ -378,8 +378,11 @@ class HomeFragment : Fragment() {
         )
     }
 
+    private var optionItemsMenu: Menu? = null
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
+        optionItemsMenu = menu
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -387,9 +390,7 @@ class HomeFragment : Fragment() {
         menu.findItem(R.id.search).isVisible = path == Path.Main
         menu.findItem(R.id.favorite).apply {
             isVisible = path != Path.Main
-            val iconRes =
-                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_outlined
-            icon = ContextCompat.getDrawable(requireContext(), iconRes);
+            updateFavoriteIcon()
         }
         super.onPrepareOptionsMenu(menu)
     }
@@ -398,12 +399,22 @@ class HomeFragment : Fragment() {
         when (item.itemId) {
             R.id.search -> navigateCitySearchActivity()
             R.id.favorite -> {
-                if (!isFavorite) {
-                    viewModel.addFavoriteCity()
-                }
+//                if (!isFavorite) {
+//                    viewModel.addFavoriteCity()
+//                }
+                isFavorite = !isFavorite
+                updateFavoriteIcon()
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateFavoriteIcon() {
+        optionItemsMenu?.findItem(R.id.favorite)?.apply {
+            val iconRes =
+                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_outlined
+            icon = ContextCompat.getDrawable(requireContext(), iconRes)
+        }
     }
 }
