@@ -16,7 +16,7 @@ class WeatherLocalDataSource(
 ) : WeatherDataSource {
     override suspend fun getCurrentLocationWeatherData(): Result<CityWeatherDto> {
         return try {
-            Result.Success(weatherDao.getWeatherData().first().toCityWeatherDto())
+            Result.Success(weatherDao.getDefaultCityWeatherData().toCityWeatherDto())
         } catch (e: Exception) {
             Result.Error(e, ErrorType.NoSavedData)
         }
@@ -52,7 +52,7 @@ class WeatherLocalDataSource(
     private fun List<DailyWeatherDto>.toDailyWeather() = map {
         DailyWeather(
             id = null,
-            cityWeatherId = 1,
+            cityWeatherId = 1, // Default number and will be changed later when actual id generated from insert of city weather
             currentUTCTime = it.currentUTCTime,
             minTemperature = it.temperature.minTemperature,
             maxTemperature = it.temperature.maxTemperature,
