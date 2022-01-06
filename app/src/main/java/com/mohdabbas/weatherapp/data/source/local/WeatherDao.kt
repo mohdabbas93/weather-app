@@ -41,9 +41,10 @@ interface WeatherDao {
     suspend fun addWeatherData(cityWeather: CityWeather, dailyWeather: List<DailyWeather>) {
         val id = getWeatherCityId()?.toInt()
         val updatedCityWeather = if (id == null) cityWeather else cityWeather.copy(id = id)
-        val cityWeatherId = addCityWeatherData(updatedCityWeather)
+        val cityWeatherId = addCityWeatherData(updatedCityWeather).toInt()
+        deleteDailyCityWeatherById(cityWeatherId)
         val updatedDailyWeather =
-            dailyWeather.map { it.copy(cityWeatherId = cityWeatherId.toInt()) }
+            dailyWeather.map { it.copy(cityWeatherId = cityWeatherId) }
         addDailyWeathersData(updatedDailyWeather)
     }
 
