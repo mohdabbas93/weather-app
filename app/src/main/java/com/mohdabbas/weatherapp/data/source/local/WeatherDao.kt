@@ -43,7 +43,7 @@ interface WeatherDao {
         dailyWeather: List<DailyWeather>,
         isDefault: Boolean
     ) {
-        val id = getWeatherCityId()?.toInt()
+        val id = getCityWeatherId(cityWeather.lat.toInt(), cityWeather.lng.toInt())?.toInt()
         val updatedCityWeather = if (id == null) cityWeather else cityWeather.copy(id = id)
         val cityWeatherId = addCityWeatherData(updatedCityWeather).toInt()
         deleteDailyCityWeatherById(cityWeatherId)
@@ -52,8 +52,8 @@ interface WeatherDao {
         addDailyWeathersData(updatedDailyWeather)
     }
 
-    @Query("SELECT id from city_weather WHERE is_default = 1")
-    suspend fun getWeatherCityId(): Long?
+    @Query("SELECT id FROM city_weather WHERE  Cast(lat AS int) = :lat and Cast(lng AS int) = :lng")
+    suspend fun getCityWeatherId(lat: Int, lng: Int): Long?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDailyWeathersData(dailyWeather: List<DailyWeather>)
