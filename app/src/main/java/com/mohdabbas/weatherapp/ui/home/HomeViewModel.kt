@@ -21,12 +21,15 @@ class HomeViewModel(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
+    private val _localWeatherData = MutableLiveData<Result<CityWeatherDto>>()
+    val localWeatherData: LiveData<Result<CityWeatherDto>> = _localWeatherData
+
     fun getCurrentLocationWeatherData() {
         viewModelScope.launch(Dispatchers.IO) {
             _loading.postValue(true)
             val response = weatherRepository.getCurrentLocationWeatherData()
             _loading.postValue(false)
-            _weatherData.postValue(response)
+            _localWeatherData.postValue(response)
         }
     }
 
@@ -37,11 +40,15 @@ class HomeViewModel(
     private val _weatherData = MutableLiveData<Result<CityWeatherDto>>()
     val weatherData: LiveData<Result<CityWeatherDto>> = _weatherData
 
-    fun getWeatherData(lat: Double, lng: Double) {
+    fun getWeatherData(lat: Double, lng: Double, hasLoading: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
-            _loading.postValue(true)
+            if (hasLoading) {
+                _loading.postValue(true)
+            }
             val response = weatherRepository.getWeatherData(lat, lng)
-            _loading.postValue(false)
+            if (hasLoading) {
+                _loading.postValue(false)
+            }
             _weatherData.postValue(response)
         }
     }

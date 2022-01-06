@@ -99,6 +99,19 @@ class HomeFragment : Fragment() {
             }
         }
 
+        viewModel.localWeatherData.observe(this) {
+            when (it) {
+                is Result.Success -> {
+                    makeVisible(mainView)
+                    showWeatherData(it.data)
+                    getLastLocation(requireContext())
+                }
+                is Result.Error -> {
+                    makeVisible(noSavedDataView)
+                }
+            }
+        }
+
         viewModel.weatherData.observe(this) {
             when (it) {
                 is Result.Success -> {
@@ -183,7 +196,11 @@ class HomeFragment : Fragment() {
                     if (location == null) {
                         startLocationUpdates()
                     } else {
-                        viewModel.getWeatherData(location.latitude, location.longitude)
+                        viewModel.getWeatherData(
+                            location.latitude,
+                            location.longitude,
+                            hasLoading = false
+                        )
                     }
                 }
             } else {
