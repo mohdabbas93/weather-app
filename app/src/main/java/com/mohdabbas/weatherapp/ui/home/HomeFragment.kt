@@ -55,7 +55,6 @@ class HomeFragment : Fragment() {
                 getLastLocation(requireContext())
         }
 
-    private var isDetailsPage = false
     private var isFavorite = false
 
     enum class Path { Main, Search, Favorite }
@@ -67,9 +66,6 @@ class HomeFragment : Fragment() {
 
         setupObservers()
         persistenceManager = PersistenceManager((requireContext()))
-
-        // First get data if not exist as to get location and not refresh data
-        // if there is data then refresh
 
         val id = arguments?.getInt("id")
         val lat = arguments?.getDouble("lat", 0.0)
@@ -388,9 +384,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.search).isVisible = !isDetailsPage
+        menu.findItem(R.id.search).isVisible = path == Path.Main
         menu.findItem(R.id.favorite).apply {
-            isVisible = isDetailsPage
+            isVisible = path != Path.Main
             val iconRes =
                 if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_outlined
             icon = ContextCompat.getDrawable(requireContext(), iconRes);
