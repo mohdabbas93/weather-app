@@ -83,11 +83,10 @@ class HomeFragment : Fragment() {
                 "Favorite",
                 Toast.LENGTH_SHORT
             ).show()
-            id == 0 && lat != null && lng != null -> Toast.makeText(
-                context,
-                "Search",
-                Toast.LENGTH_SHORT
-            ).show()
+            id == 0 && lat != null && lng != null -> {
+                path = Path.Search
+                searchPath(lat, lng)
+            }
             else -> {
                 path = Path.Main
                 mainPath()
@@ -114,6 +113,10 @@ class HomeFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         createLocationRequest()
         viewModel.getCurrentLocationWeatherData()
+    }
+
+    private fun searchPath(lat: Double, lng: Double) {
+        viewModel.getWeatherData(lat, lng, storeInDb = false)
     }
 
     private fun createLocationRequest() {
