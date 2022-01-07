@@ -20,7 +20,7 @@ class WeatherApplication : Application() {
 
     companion object {
         lateinit var persistenceManager: PersistenceManager
-        lateinit var WeatherRepository: WeatherRepository
+        lateinit var weatherRepository: WeatherRepository
         lateinit var citySearchRepository: CitySearchRepository
     }
 
@@ -33,7 +33,7 @@ class WeatherApplication : Application() {
         val database = Room.databaseBuilder(this, WeatherDatabase::class.java, "weather-db").build()
         val weatherLocalDataSource = WeatherLocalDataSource(database.weatherDao())
 
-        WeatherRepository = WeatherRepository(weatherRemoteDataSource, weatherLocalDataSource)
+        weatherRepository = WeatherRepository(weatherRemoteDataSource, weatherLocalDataSource)
 
         val citySearchRemoteDataSource = CitySearchRemoteDataSource(CitySearchApi.create())
         citySearchRepository = CitySearchRepository(citySearchRemoteDataSource)

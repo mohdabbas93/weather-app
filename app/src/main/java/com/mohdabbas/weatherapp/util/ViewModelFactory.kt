@@ -3,7 +3,7 @@ package com.mohdabbas.weatherapp.util
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mohdabbas.weatherapp.WeatherApplication.Companion.WeatherRepository
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.weatherRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.citySearchRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesViewModel
@@ -21,9 +21,9 @@ class ViewModelFactory : ViewModelProvider.Factory {
         with(modelClass) {
             when {
                 isAssignableFrom(HomeViewModel::class.java) ->
-                    HomeViewModel(WeatherRepository, persistenceManager)
+                    HomeViewModel(weatherRepository, persistenceManager)
                 isAssignableFrom(FavoriteCitiesViewModel::class.java) ->
-                    FavoriteCitiesViewModel(WeatherRepository)
+                    FavoriteCitiesViewModel(weatherRepository)
                 isAssignableFrom(SettingsViewModel::class.java) ->
                     SettingsViewModel(persistenceManager)
                 isAssignableFrom(CitySearchViewModel::class.java) ->

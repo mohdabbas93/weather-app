@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         CoroutineScope(Dispatchers.IO).launch {
-            val temperature = WeatherApplication.WeatherRepository.getRemoteTodayTemperature()
+            val temperature = WeatherApplication.weatherRepository.getRemoteTodayTemperature()
             if (temperature != null)
                 NotificationHelper(context).createNotification(temperature.toInt())
         }
