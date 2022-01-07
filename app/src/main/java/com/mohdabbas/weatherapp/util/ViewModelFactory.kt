@@ -3,8 +3,10 @@ package com.mohdabbas.weatherapp.util
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.WeatherRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.citySearchRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
+import com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesViewModel
 import com.mohdabbas.weatherapp.ui.search.CitySearchViewModel
 import com.mohdabbas.weatherapp.ui.settings.SettingsViewModel
 
@@ -17,6 +19,8 @@ class ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
+                isAssignableFrom(FavoriteCitiesViewModel::class.java) ->
+                    FavoriteCitiesViewModel(WeatherRepository)
                 isAssignableFrom(SettingsViewModel::class.java) ->
                     SettingsViewModel(persistenceManager)
                 isAssignableFrom(CitySearchViewModel::class.java) ->

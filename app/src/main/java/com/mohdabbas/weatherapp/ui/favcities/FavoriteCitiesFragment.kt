@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.ui.search.CitySearchActivity
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
+import com.mohdabbas.weatherapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
 class FavoriteCitiesFragment : Fragment() {
 
-    private val viewModel = FavoriteCitiesViewModel(WeatherApplication.WeatherRepository)
+    private val viewModel by lazy { getViewModel(FavoriteCitiesViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
