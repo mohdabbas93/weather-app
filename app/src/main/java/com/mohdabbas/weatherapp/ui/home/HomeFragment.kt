@@ -48,8 +48,13 @@ class HomeFragment : Fragment() {
 
     private val resolutionForResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
-            if (activityResult.resultCode == Activity.RESULT_OK)
+            if (activityResult.resultCode == Activity.RESULT_OK) {
                 getLastLocation(requireContext())
+            } else {
+                Toast.makeText(context, getString(R.string.enable_location), Toast.LENGTH_SHORT)
+                    .show()
+                viewModel.setLocationUnavailable()
+            }
         }
 
     enum class Path { Main, Search, Favorite }
@@ -104,6 +109,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        viewModel.locationUnavailable.observe(this) {
+            makeGone(loadingView)
+            makeVisible(noSavedDataView)
+        }
+
         viewModel.loading.observe(this) {
             makeGone(loadingView, mainView, errorView, noSavedDataView)
             if (it) {
@@ -296,7 +306,12 @@ class HomeFragment : Fragment() {
             val context = context
             if (context != null) getLastLocation(context)
         } else {
-            Toast.makeText(context, "Location permission not granted", Toast.LENGTH_SHORT)
+            viewModel.setLocationUnavailable()
+            Toast.makeText(
+                context,
+                getString(R.string.location_permission_denied),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
     }

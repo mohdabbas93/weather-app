@@ -37,6 +37,13 @@ class HomeViewModel(
         _loading.value = true
     }
 
+    private val _locationUnavailable = MutableLiveData<Boolean>()
+    val locationUnavailable: LiveData<Boolean> = _locationUnavailable
+
+    fun setLocationUnavailable() {
+        _locationUnavailable.value = true
+    }
+
     private val _weatherData = MutableLiveData<Result<CityWeatherDto>>()
     val weatherData: LiveData<Result<CityWeatherDto>> = _weatherData
 
