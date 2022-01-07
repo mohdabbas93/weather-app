@@ -44,6 +44,7 @@ The project consists of:
 # Known issues
 - When the app tries to get the location after enabling the location, it may take forever to get the location, so it will help if you reopened the app multiple times.
 - If you have the app already installed, please clear the data first or uninstall it before installing the app again.
+- For some reason, the favorite cities list is not updating after adding or deleting a new city unless you reopen the app.
 
 # Future work
 - Use data binding, navigation component, and dependency injection.
