@@ -45,7 +45,7 @@ The project consists of:
 - When the app tries to get the location after enabling the location, it may take forever to get the location, so it will help if you reopened the app multiple times.
 - If you have the app already installed, please clear the data first or uninstall it before installing the app again.
 
-# Futrue work
+# Future work
 - Use data binding, navigation component, and dependency injection.
 - Export and Import Favourite cities as CSV File.
 - Use multi-module architecture.
