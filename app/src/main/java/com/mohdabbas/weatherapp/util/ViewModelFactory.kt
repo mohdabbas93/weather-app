@@ -7,6 +7,7 @@ import com.mohdabbas.weatherapp.WeatherApplication.Companion.WeatherRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.citySearchRepository
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesViewModel
+import com.mohdabbas.weatherapp.ui.home.HomeViewModel
 import com.mohdabbas.weatherapp.ui.search.CitySearchViewModel
 import com.mohdabbas.weatherapp.ui.settings.SettingsViewModel
 
@@ -19,6 +20,8 @@ class ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
+                isAssignableFrom(HomeViewModel::class.java) ->
+                    HomeViewModel(WeatherRepository)
                 isAssignableFrom(FavoriteCitiesViewModel::class.java) ->
                     FavoriteCitiesViewModel(WeatherRepository)
                 isAssignableFrom(SettingsViewModel::class.java) ->

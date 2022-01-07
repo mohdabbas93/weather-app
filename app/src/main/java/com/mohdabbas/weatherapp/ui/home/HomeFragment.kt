@@ -22,7 +22,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
@@ -32,6 +31,7 @@ import com.mohdabbas.weatherapp.util.RecyclerViewUtil
 import com.mohdabbas.weatherapp.util.TemperatureConverterUtil.convertTemperature
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
+import com.mohdabbas.weatherapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -43,8 +43,7 @@ class HomeFragment : Fragment() {
     private var fusedLocationClient: FusedLocationProviderClient? = null
     private var locationRequest: LocationRequest? = null
 
-    // TODO: Very stupid way to instantiate a view model, for it works for now
-    private val viewModel = HomeViewModel(WeatherApplication.WeatherRepository)
+    private val viewModel by lazy { getViewModel(HomeViewModel::class.java) }
 
     private val resolutionForResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
