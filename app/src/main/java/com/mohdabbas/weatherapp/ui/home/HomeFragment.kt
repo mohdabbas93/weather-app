@@ -120,6 +120,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.localWeatherData.observe(this) {
+            makeGone(loadingView)
             when (it) {
                 is Result.Success -> {
                     makeVisible(mainView)
