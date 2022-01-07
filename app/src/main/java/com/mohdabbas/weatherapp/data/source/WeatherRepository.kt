@@ -22,6 +22,24 @@ class WeatherRepository(
         return localDataSource.getCurrentLocationWeatherData()
     }
 
+    suspend fun getRemoteTodayTemperature(): Double? {
+        val localData = localDataSource.getCurrentLocationWeatherData()
+        if (localData is Result.Success) {
+            val result = remoteDataSource.getRemoteWeatherDataAndStoreItInDb(
+                localData.data.lat,
+                localData.data.lng,
+                isDefault = true,
+                storeInDb = true
+            )
+
+            if (result is Result.Success) {
+                return result.data.currentWeather.temperature
+            }
+        }
+
+        return null
+    }
+
     override suspend fun deleteCityWeather(id: Int) {
         localDataSource.deleteCityWeather(id)
     }

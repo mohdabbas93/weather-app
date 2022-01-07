@@ -30,10 +30,10 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
-    fun createNotification() {
+    fun createNotification(temperature: Int) {
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(context.getString(R.string.temp_today_title))
-            .setContentText(context.getString(R.string.temp_today_text, 34))
+            .setContentText(context.getString(R.string.temp_today_text, temperature))
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
