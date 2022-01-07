@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.WeatherRepository
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
+import com.mohdabbas.weatherapp.persistence.PersistenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,8 +16,11 @@ import kotlinx.coroutines.launch
  * On: 1/2/22.
  */
 class HomeViewModel(
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
+    private val persistenceManager: PersistenceManager
 ) : ViewModel() {
+
+    fun isCelsius() = persistenceManager.isCelsius
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading

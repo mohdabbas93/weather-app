@@ -22,7 +22,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.dto.CityWeatherDto
 import com.mohdabbas.weatherapp.ui.search.CitySearchActivity
@@ -187,7 +186,7 @@ class HomeFragment : Fragment() {
             getString(
                 R.string.current_temp,
                 weatherData.currentWeather.temperature.convertTemperature(
-                    persistenceManager.isCelsius
+                    viewModel.isCelsius
                 )
                     .toInt()
             )
@@ -197,7 +196,7 @@ class HomeFragment : Fragment() {
             getString(
                 R.string.feels_like_temp,
                 weatherData.currentWeather.feelsLike.convertTemperature(
-                    persistenceManager.isCelsius
+                    viewModel.isCelsius
                 )
                     .toInt()
             )
@@ -385,7 +384,7 @@ class HomeFragment : Fragment() {
     private var adapter: DailyWeatherAdapter? = null
 
     private fun setupDailyRecyclerView() {
-        adapter = DailyWeatherAdapter(listOf(), persistenceManager.isCelsius)
+        adapter = DailyWeatherAdapter(listOf(), viewModel.isCelsius)
         dailyRecyclerView.adapter = adapter
         dailyRecyclerView.addItemDecoration(
             RecyclerViewUtil.addSpacingDecorationForRecyclerView(

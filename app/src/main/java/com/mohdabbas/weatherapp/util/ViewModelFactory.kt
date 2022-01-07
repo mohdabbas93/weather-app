@@ -21,7 +21,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
         with(modelClass) {
             when {
                 isAssignableFrom(HomeViewModel::class.java) ->
-                    HomeViewModel(WeatherRepository)
+                    HomeViewModel(WeatherRepository, persistenceManager)
                 isAssignableFrom(FavoriteCitiesViewModel::class.java) ->
                     FavoriteCitiesViewModel(WeatherRepository)
                 isAssignableFrom(SettingsViewModel::class.java) ->
