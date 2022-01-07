@@ -3,8 +3,10 @@ package com.mohdabbas.weatherapp.util
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.citySearchRepository
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import com.mohdabbas.weatherapp.ui.search.CitySearchViewModel
+import com.mohdabbas.weatherapp.ui.settings.SettingsViewModel
 
 /**
  * Created by Mohammad Abbas
@@ -15,8 +17,10 @@ class ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
+                isAssignableFrom(SettingsViewModel::class.java) ->
+                    SettingsViewModel(persistenceManager)
                 isAssignableFrom(CitySearchViewModel::class.java) ->
-                    CitySearchViewModel(WeatherApplication.citySearchRepository)
+                    CitySearchViewModel(citySearchRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
+import com.mohdabbas.weatherapp.util.getViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 class SettingsFragment : Fragment() {
 
-    private val viewModel = SettingsViewModel(persistenceManager)
+    private val viewModel by lazy { getViewModel(SettingsViewModel::class.java) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

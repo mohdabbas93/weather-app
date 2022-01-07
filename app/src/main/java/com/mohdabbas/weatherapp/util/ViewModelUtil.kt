@@ -1,6 +1,7 @@
 package com.mohdabbas.weatherapp.util
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -10,4 +11,7 @@ import androidx.lifecycle.ViewModelProvider
  */
 
 fun <T : ViewModel> AppCompatActivity.getViewModel(viewModelClass: Class<T>) =
+    ViewModelProvider(this, ViewModelFactory.getInstance())[viewModelClass]
+
+fun <T : ViewModel> Fragment.getViewModel(viewModelClass: Class<T>) =
     ViewModelProvider(this, ViewModelFactory.getInstance())[viewModelClass]
