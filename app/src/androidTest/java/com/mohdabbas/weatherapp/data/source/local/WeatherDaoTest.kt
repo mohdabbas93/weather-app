@@ -40,20 +40,6 @@ class WeatherDaoTest {
     }
 
     @Test
-    fun insertCityWeather() = runBlocking {
-        val cityWeather = CityWeather(
-            1, 24.5, 53.4, "Cairo", 12345678, 34.0, 34.9,
-            1080, 40, 1234.0, "Sunny", "0d2"
-        )
-
-        dao.addWeatherData(cityWeather)
-
-        val citiesWeathers = dao.getWeatherData()
-
-        assert(citiesWeathers.contains(cityWeather))
-    }
-
-    @Test
     fun addAndGetDefaultCityWeatherData() = runBlocking {
         val defaultCityWeather = TestUtil.createCityWeather(isDefault = true)
 
