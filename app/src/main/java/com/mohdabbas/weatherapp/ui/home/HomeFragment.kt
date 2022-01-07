@@ -186,7 +186,7 @@ class HomeFragment : Fragment() {
             getString(
                 R.string.current_temp,
                 weatherData.currentWeather.temperature.convertTemperature(
-                    viewModel.isCelsius
+                    viewModel.isCelsius()
                 )
                     .toInt()
             )
@@ -196,7 +196,7 @@ class HomeFragment : Fragment() {
             getString(
                 R.string.feels_like_temp,
                 weatherData.currentWeather.feelsLike.convertTemperature(
-                    viewModel.isCelsius
+                    viewModel.isCelsius()
                 )
                     .toInt()
             )
@@ -384,7 +384,7 @@ class HomeFragment : Fragment() {
     private var adapter: DailyWeatherAdapter? = null
 
     private fun setupDailyRecyclerView() {
-        adapter = DailyWeatherAdapter(listOf(), viewModel.isCelsius)
+        adapter = DailyWeatherAdapter(listOf(), viewModel.isCelsius())
         dailyRecyclerView.adapter = adapter
         dailyRecyclerView.addItemDecoration(
             RecyclerViewUtil.addSpacingDecorationForRecyclerView(
