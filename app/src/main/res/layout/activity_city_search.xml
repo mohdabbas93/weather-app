@@ -11,6 +11,7 @@
         android:id="@+id/citySearchInputEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_corner_border"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="6dp"
         android:hint="@string/search"
@@ -21,17 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/search"
-        app:layout_constraintBottom_toTopOf="@+id/loadingView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/citySearchInputEditText" />
-
     <include
         android:id="@+id/loadingView"
         layout="@layout/layout_loading_view"
@@ -41,12 +31,13 @@
         app:layout_constraintBottom_toTopOf="@+id/citySearchResultsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+        app:layout_constraintTop_toBottomOf="@+id/citySearchInputEditText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/citySearchResultsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="24dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
