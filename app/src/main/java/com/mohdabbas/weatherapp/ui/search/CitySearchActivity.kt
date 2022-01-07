@@ -6,7 +6,6 @@ import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
 import com.mohdabbas.weatherapp.util.RecyclerViewUtil
@@ -14,12 +13,12 @@ import com.mohdabbas.weatherapp.util.RecyclerViewUtil.addSpacingDecorationForRec
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeInvisible
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
+import com.mohdabbas.weatherapp.util.getViewModel
 import kotlinx.android.synthetic.main.activity_city_search.*
 
 class CitySearchActivity : AppCompatActivity() {
 
-    // TODO: Very stupid way to instantiate a view model, for it works for now (refactor later)
-    private val viewModel = CitySearchViewModel(WeatherApplication.citySearchRepository)
+    private val viewModel by lazy { getViewModel(CitySearchViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
