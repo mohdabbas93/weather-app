@@ -1,6 +1,8 @@
 package com.mohdabbas.weatherapp.ui.search
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mohdabbas.weatherapp.R
@@ -23,18 +25,22 @@ class CitySearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_search)
 
-        setupClickListeners()
+        setupSearchField()
         setupCitySearchResultsAdapter()
         setupObservers()
     }
 
-    private fun setupClickListeners() {
-        searchButton.setOnClickListener {
-            val searchTerm = citySearchInputEditText.text.toString().trim()
-            if (searchTerm.isNotEmpty()) {
-                viewModel.searchCity(searchTerm)
+    private fun setupSearchField() {
+        citySearchInputEditText.setOnEditorActionListener(OnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val searchTerm = textView.text.toString().trim()
+                if (searchTerm.isNotEmpty()) {
+                    viewModel.searchCity(searchTerm)
+                }
+                return@OnEditorActionListener true
             }
-        }
+            false
+        })
     }
 
     private var adapter: CitySearchResultsAdapter? = null
