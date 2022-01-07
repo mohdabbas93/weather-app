@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.WeatherApplication
+import com.mohdabbas.weatherapp.WeatherApplication.Companion.persistenceManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 
+
 class SettingsFragment : Fragment() {
+
+    private val viewModel = SettingsViewModel(persistenceManager)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -18,14 +21,14 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupRadioButtons() {
-        if (WeatherApplication.persistenceManager.isCelsius) {
+        if (viewModel.isCelsius()) {
             celsiusRadioButton.isChecked = true
         } else {
             fahrenheitRadioButton.isChecked = true
         }
 
         tempUnitRadioGroup.setOnCheckedChangeListener { _, i ->
-            WeatherApplication.persistenceManager.isCelsius = celsiusRadioButton.id == i
+            viewModel.setIsCelsius(celsiusRadioButton.id == i)
         }
     }
 
