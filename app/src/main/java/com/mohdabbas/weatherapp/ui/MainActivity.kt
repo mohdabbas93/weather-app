@@ -19,14 +19,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupBottomNavigationView()
+        setupDailyWeatherNotification()
     }
 
     private fun setupBottomNavigationView() {
         bottomNavigationView.setupWithNavController(navHostFragment.findNavController())
-        setAlarm()
     }
 
-    private fun setAlarm() {
+    private fun setupDailyWeatherNotification() {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, 6)
 
