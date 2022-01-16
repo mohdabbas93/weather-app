@@ -5,11 +5,9 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesFragment
-import com.mohdabbas.weatherapp.ui.home.HomeFragment
-import com.mohdabbas.weatherapp.ui.settings.SettingsFragment
 import com.mohdabbas.weatherapp.util.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -24,29 +22,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationView() {
-        val homeFragment = HomeFragment()
-        val favCitiesFragment = FavoriteCitiesFragment()
-        val settingsFragment = SettingsFragment()
-
-        setCurrentFragment(homeFragment)
-
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.home -> setCurrentFragment(homeFragment)
-                R.id.fav_cities -> setCurrentFragment(favCitiesFragment)
-                R.id.settings -> setCurrentFragment(settingsFragment)
-            }
-            true
-        }
-
+        bottomNavigationView.setupWithNavController(navHostFragment.findNavController())
         setAlarm()
     }
-
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView, fragment)
-            commit()
-        }
 
     private fun setAlarm() {
         val calendar = Calendar.getInstance()
