@@ -31,4 +31,5 @@ ext {
     retrofitVersion = '2.9.0'
     httpLoggingInterceptorVersion = '4.9.3'
     roomVersion = '2.3.0'
+    navVersion = '2.3.5'
 }
