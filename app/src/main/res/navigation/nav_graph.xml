@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mohdabbas.weatherapp.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/favoriteCitiesFragment"
+        android:name="com.mohdabbas.weatherapp.ui.favcities.FavoriteCitiesFragment"
+        android:label="fragment_favorite_cities"
+        tools:layout="@layout/fragment_favorite_cities" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mohdabbas.weatherapp.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <activity
+        android:id="@+id/citySearchActivity"
+        android:name="com.mohdabbas.weatherapp.ui.search.CitySearchActivity"
+        android:label="activity_city_search"
+        tools:layout="@layout/activity_city_search" />
+    <activity
+        android:id="@+id/cityWeatherDetailsActivity"
+        android:name="com.mohdabbas.weatherapp.ui.details.CityWeatherDetailsActivity"
+        android:label="activity_city_weather_details"
+        tools:layout="@layout/activity_city_weather_details" />
+</navigation>
