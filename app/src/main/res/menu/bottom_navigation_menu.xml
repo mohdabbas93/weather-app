@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
 
     <item
-        android:id="@+id/fav_cities"
+        android:id="@+id/favoriteCitiesFragment"
         android:enabled="true"
         android:icon="@drawable/ic_fav_cities"
         android:title="@string/fav_cities" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/settingsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_settings"
         android:title="@string/settings" />
