@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.mohdabbas.weatherapp.R
-import com.mohdabbas.weatherapp.util.getViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    private val viewModel by lazy { getViewModel(SettingsViewModel::class.java) }
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

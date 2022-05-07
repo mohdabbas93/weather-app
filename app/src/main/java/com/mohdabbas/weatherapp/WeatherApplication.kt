@@ -11,11 +11,13 @@ import com.mohdabbas.weatherapp.data.source.remote.WeatherRemoteDataSource
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchApi
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchRemoteDataSource
 import com.mohdabbas.weatherapp.persistence.PersistenceManager
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
+@HiltAndroidApp
 class WeatherApplication : Application() {
 
     companion object {

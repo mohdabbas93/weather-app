@@ -1,12 +1,14 @@
 package com.mohdabbas.weatherapp.persistence
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 /**
  * Created by Mohammad Abbas
  * On: 1/2/22.
  */
-class PersistenceManager(context: Context) {
+class PersistenceManager @Inject constructor(@ApplicationContext context: Context) {
 
     private var sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
