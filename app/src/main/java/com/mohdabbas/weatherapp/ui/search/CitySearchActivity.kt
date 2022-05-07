@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.mohdabbas.weatherapp.R
 import com.mohdabbas.weatherapp.data.Result
@@ -13,12 +14,13 @@ import com.mohdabbas.weatherapp.util.RecyclerViewUtil.addSpacingDecorationForRec
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeGone
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeInvisible
 import com.mohdabbas.weatherapp.util.ViewVisibilityUtil.makeVisible
-import com.mohdabbas.weatherapp.util.getViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_city_search.*
 
+@AndroidEntryPoint
 class CitySearchActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { getViewModel(CitySearchViewModel::class.java) }
+    private val viewModel: CitySearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

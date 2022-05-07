@@ -3,12 +3,13 @@ package com.mohdabbas.weatherapp.data.source.remote.citysearch
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.CitySearchDataSource
 import com.mohdabbas.weatherapp.util.ErrorType
+import javax.inject.Inject
 
 /**
  * Created by Mohammad Abbas
  * On: 1/5/22.
  */
-class CitySearchRemoteDataSource(
+class CitySearchRemoteDataSource @Inject constructor(
     private val citySearchApi: CitySearchApi
 ) : CitySearchDataSource {
 

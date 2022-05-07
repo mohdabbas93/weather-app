@@ -7,15 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.mohdabbas.weatherapp.data.Result
 import com.mohdabbas.weatherapp.data.source.CitySearchRepository
 import com.mohdabbas.weatherapp.data.source.remote.citysearch.CitySearchDto
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Mohammad Abbas
  * On: 1/5/22.
  */
-class CitySearchViewModel(
+@HiltViewModel
+class CitySearchViewModel @Inject constructor(
     private val citySearchRepository: CitySearchRepository
 ) : ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
